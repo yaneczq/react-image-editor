@@ -1,0 +1,50 @@
+.dropzone__container {
+    @include glassmorphism();
+    color: $grey-100;
+    width: 50%;
+    position: static;
+
+
+    
+    .dropzone {
+        display: flex;
+        flex-direction: column;
+        border: 2px dashed #ccc;
+        border-radius: 0.5rem;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        transition: all 0.3s ease;
+        color: rgba($grey-300, 0.5);
+        height: 4rem;
+        
+        &.accept {
+            border-color: $primary;
+            background-color: $grey-100;
+            color: $primary-dark;
+        }
+        
+        &.reject {
+            border-color: red;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        
+        &:hover {
+            border-color: $primary;
+            cursor: pointer;
+            
+            color: $primary-dark;
+            padding: 0.5rem;
+        }
+        
+        p {
+            font-size: $font-size-sm;
+            font-weight: 500;
+        }
+        
+        em {
+            font-size: $font-size-xs;
+        }
+      }
+
+}

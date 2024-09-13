@@ -13,7 +13,7 @@ const DropzoneForm = () => {
         <div className="dropzone__container">
             <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
-                <p>Drag n drop some files here, ssor click to select files</p>
+                <p>Drag n drop some files here, or click to select files</p>
                 <em>Avaiable formats: jpg, png, bpm..</em>
           </div>
         </div>
