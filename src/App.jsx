@@ -1,6 +1,11 @@
+import DropzoneForm from "./components/DropzoneForm.jsx/DropzoneForm";
+
+
 const App = () => {
   return (
-    <div className="app">App</div>
+    <div className="app">
+      <DropzoneForm/>
+    </div>
   )
 }
 
