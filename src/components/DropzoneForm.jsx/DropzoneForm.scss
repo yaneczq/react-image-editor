@@ -4,7 +4,10 @@
     width: 50%;
     position: static;
 
-
+    li {
+        list-style-type: none;
+        padding: 1rem;
+    }
     
     .dropzone {
         display: flex;
@@ -18,16 +21,7 @@
         color: rgba($grey-300, 0.5);
         height: 4rem;
         
-        &.accept {
-            border-color: $primary;
-            background-color: $grey-100;
-            color: $primary-dark;
-        }
-        
-        &.reject {
-            border-color: red;
-            background-color: rgba(255, 0, 0, 0.1);
-        }
+       
         
         &:hover {
             border-color: $primary;

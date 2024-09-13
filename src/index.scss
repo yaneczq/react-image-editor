@@ -22,4 +22,7 @@ body,html {
 
 p, em {
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
+
