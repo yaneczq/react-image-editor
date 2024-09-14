@@ -61,12 +61,12 @@ const DropzoneForm = () => {
                 </div>
             
 
+            </div>
                 <div className="image-browser">
                     <h3>Image Browser</h3>
                     {/* Display the list of accepted files */}
                     <ul>{acceptedFileItems}</ul>
                 </div>
-            </div>
             <div className="image-canvas">
                 {/* Display the selected image in the canvas */}
                 {imageSrc && <ImageCanvas imageSrc={imageSrc} />}
