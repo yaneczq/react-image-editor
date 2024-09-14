@@ -1,6 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import { useState } from "react";
 import ImageCanvas from "../ImageCanvas/ImageCanvas";
+import { BarLoader } from "react-spinners";
 
 const DropzoneForm = () => {
     // State to hold the list of accepted files
@@ -8,18 +9,30 @@ const DropzoneForm = () => {
     // State to hold the URL of the currently displayed image
     const [imageSrc, setImageSrc] = useState(null);
 
+    const [loading, setLoading] = useState(false);
+
     // Function to handle files dropped by the user
     const onDrop = (files) => {
-        // Update the list of accepted files
-        setAcceptedFiles((prevFiles) => [...prevFiles, ...files]);
+        setLoading(true); // Start loading
+        new Promise((resolve) => {
+            setTimeout(() => {
+                // Update the list of accepted files
+                setAcceptedFiles((prevFiles) => [...prevFiles, ...files]);
+                
+                // If there are files, set the first one as the initial image to display
+                if (files[0]) {
+                    const url = URL.createObjectURL(files[0]);
+                    setImageSrc(url);
+                }
 
-        // If there are files, set the first one as the initial image to display
-        if (files[0]) {
-            const url = URL.createObjectURL(files[0]);
-            setImageSrc(url);
-        }
+                resolve(); // Promise resolves after 2s
+            }, 1000);
+        }).then(() => {
+            setLoading(false);
+            console.log('Succes');
+            
+        })
 
-        alert("success"); // Show success alert
     };
 
     // Configuration for react-dropzone
@@ -68,8 +81,11 @@ const DropzoneForm = () => {
                     <ul>{acceptedFileItems}</ul>
                 </div>
             <div className="image-canvas">
-                {/* Display the selected image in the canvas */}
-                {imageSrc && <ImageCanvas imageSrc={imageSrc} />}
+                {loading ? (
+                    <BarLoader color="#fff" loading={loading} size={50}/>
+                ) : (
+                    imageSrc && <ImageCanvas imageSrc={imageSrc} />
+                )};
             </div>
         </>
     );
