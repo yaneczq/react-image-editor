@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes for validation
 
 const ImageCanvas = ({ imageSrc }) => {
   const canvasRef = useRef(null);
@@ -24,6 +25,10 @@ const ImageCanvas = ({ imageSrc }) => {
       height={500}
     />
   );
+};
+
+ImageCanvas.propTypes = {
+  imageSrc: PropTypes.string.isRequired, // Ensure imageSrc is a required string
 };
 
 export default ImageCanvas;
