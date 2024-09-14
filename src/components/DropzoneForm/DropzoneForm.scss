@@ -6,7 +6,8 @@
     padding: 0.5rem;
     justify-content: space-between;
     border-radius: 1rem;
- 
+    width: 50vw;
+    
     
     .dropzone {
         display: flex;
@@ -44,7 +45,14 @@
 
 
 .image-browser {
+    @include glassmorphism();
+    width: 50vw;
+
+    text-align: center;
+    padding: 0.5rem;
     color: white;
+    border-radius: 12px;
+
     li {
         list-style-type: none;
         padding: 1rem;
