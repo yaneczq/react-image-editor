@@ -4,8 +4,30 @@ import ImageCanvas from "../ImageCanvas/ImageCanvas";
 import { BarLoader } from "react-spinners";
 
 import { saveImagesToLocalStorage, loadImagesFromLocalStorage, resetStorageAndReload } from "../../utils/utils";
+const defStyle = [
+    { id: 0, name: "Grayscale", value: 0 },
+    { id: 1, name: "Sepia", value: 0 },
+    { id: 2, name: "Opacity", value: 100 },
+    { id: 3, name: "Invert", value: 0 },
+    { id: 4, name: "Hue-Rotate", value: 0 },
+    { id: 5, name: "Brightness", value: 20 },
+    { id: 6, name: "Contrast", value: 20 },
+    { id: 7, name: "Saturate", value: 10 },
+    { id: 8, name: "Blur", value: 0 }
+  ];
+const utilityFunc = (url) => {
+    return () => {
+        if (url) {
+            URL.revokeObjectURL(url);
+        }
+    };
+}
 
 const DropzoneForm = () => {
+    const [filter, setFilter] = useState(defStyle);
+
+
+
     // State to hold the list of accepted files
     const [acceptedFiles, setAcceptedFiles] = useState([]);
     // State to hold the URL of the currently displayed image
@@ -23,6 +45,8 @@ const DropzoneForm = () => {
         }).catch(error => {
             console.error('Error loading saved images:', error);
         });
+
+        utilityFunc()
     }, []);
 
     // Function to handle files dropped by the user
@@ -88,7 +112,19 @@ const DropzoneForm = () => {
 
     // Generate a list of uploaded files with clickable items to select an image
     
+
     
+    function onFilterChange(e) {
+        const filterName = e.target.name;
+        const filterId = filter.findIndex((f) => f.name === filterName);
+    
+        if (filterId !== -1) {
+            const newFilter = [...filter];
+            // Number(e.target.value) converts the slider value from a string to a number before updating the state.
+            newFilter[filterId] = { ...newFilter[filterId], value: Number(e.target.value) }; // Convert value to a number
+            setFilter(newFilter);
+        }
+    }
     
     const acceptedFileItems = acceptedFiles.map((file, index) => (
 
@@ -117,19 +153,45 @@ const DropzoneForm = () => {
                 </div>
             </div>
 
-            <div className="image-browser">
-                    <h2>Image Browser</h2>
-                    {/* Display the list of accepted files */}
-                    <ul>{acceptedFileItems}</ul>
-            </div>
 
-            <>
-                {loading ? (
-                    <BarLoader color="#fff" loading={loading} size={50}/>
-                ) : (
-                    imageSrc && <ImageCanvas imageSrc={imageSrc} />
-                )}
-            </>
+            <div className="image-editor">
+
+                <div className="image-browser">
+                        <h2>Image Browser</h2>
+                        {/* Display the list of accepted files */}
+                        <ul>{acceptedFileItems}</ul>
+                </div>
+
+                <div className="display">
+                    {loading ? (
+                        <BarLoader color="#fff" loading={loading} size={50}/>
+                    ) : (
+                        <div className="editor-tools">
+                            {imageSrc && <ImageCanvas filters={filter} imageSrc={imageSrc} />}
+                            {filter.map((x, index) => (
+                            <div className="slider" key={index}>
+                                <span
+                                htmlFor="customRange1"
+            
+                                >
+                                {x.name}
+                                </span>
+                                <input
+                                type="range"
+                                id="customRange1"
+                                value={x.value}
+                                min="0"
+                                max="100"
+                                name={x.name}
+                                onChange={onFilterChange}
+                                />
+                            </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+            </div>
 
             <button onClick={resetStorageAndReload}>
                 Reset Storage
