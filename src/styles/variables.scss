@@ -13,6 +13,9 @@ $primary-hover: #0055aa;
 $primary-light: #66b2ff;
 $primary-dark: #0056b3;
 
+$error: #fd1d11;
+
+
 $secondary: #6c757d;
 $secondary-light: #a9b2bd;
 $secondary-dark: #343a40;
@@ -32,8 +35,8 @@ $spacing-7: $spacing-unit * 5; // 40px
 // Font sizes
 $font-size-base: 16px;
 
+$font-size-xxs: $font-size-base * 0.5; // 12px
 $font-size-xs: $font-size-base * 0.75; // 12px
-$font-size-sm: $font-size-base * 0.875; // 14px
 $font-size-sm: $font-size-base * 0.875; // 14px
 $font-size-md: $font-size-base; // 16px
 $font-size-lg: $font-size-base * 1.25; // 20px
