@@ -23,6 +23,8 @@ const utilityFunc = (url) => {
     };
 }
 
+
+
 const DropzoneForm = () => {
     const [filter, setFilter] = useState(defStyle);
 
@@ -49,39 +51,100 @@ const DropzoneForm = () => {
         utilityFunc()
     }, []);
 
-    // Function to handle files dropped by the user
+    // // Function to handle files dropped by the user
+    // const onDrop = (files) => {
+    //     setLoading(true); // Start loading
+    //     new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             // Update the list of accepted files
+    //             setAcceptedFiles(prevFiles => {
+    //                 const updatedFiles = [...prevFiles, ...files];
+    //                 saveImagesToLocalStorage(updatedFiles);
+    //                 return updatedFiles;
+    //             });
+                
+    //             if (files[0]) {
+    //                 const url = URL.createObjectURL(files[0]);
+    //                 setImageSrc(url);
+    //             }
+
+    //             resolve();
+    //         }, 1000);
+    //     }).then(() => {
+    //         setLoading(false);
+    //         alert("Succes")
+    //     });
+    // };
+
     const onDrop = (files) => {
         setLoading(true); // Start loading
+    
         new Promise((resolve) => {
             setTimeout(() => {
+                const newFiles = files.filter((file) => {
+                    // Check for duplicates based on file name or size
+                    const isDuplicate = acceptedFiles.some((existingFile) => 
+                        existingFile.name === file.name && existingFile.size === file.size
+                    );
+    
+                    if (isDuplicate) {
+                        alert(`File "${file.name}" is a duplicate and will not be added.`);
+                        return false; // Exclude duplicate files
+                    }
+    
+                    return true; // Include non-duplicate files
+                });
+    
+                // If no valid files, return early
+                if (newFiles.length === 0) {
+                    setLoading(false);
+                    return;
+                }
+    
                 // Update the list of accepted files
-                setAcceptedFiles(prevFiles => {
-                    const updatedFiles = [...prevFiles, ...files];
+                setAcceptedFiles((prevFiles) => {
+                    const updatedFiles = [...prevFiles, ...newFiles];
                     saveImagesToLocalStorage(updatedFiles);
                     return updatedFiles;
                 });
-                
-                if (files[0]) {
-                    const url = URL.createObjectURL(files[0]);
+    
+                if (newFiles[0]) {
+                    const url = URL.createObjectURL(newFiles[0]);
                     setImageSrc(url);
                 }
-
+    
                 resolve();
             }, 1000);
         }).then(() => {
             setLoading(false);
-            alert("Succes")
+            alert("Success!");
         });
     };
+    
+
+    const onDropRejected = (rejectedFiles) => {
+        rejectedFiles.forEach(rejected => {
+            const { file, errors } = rejected; // Properly access file and errors
+    
+            errors.forEach(err => {
+                if (err.code === "file-invalid-type") {
+                    alert(`Error: File "${file.name}" is not a valid format. Please upload a .jpg or .png file.`);
+                }
+                // Handle other errors here (if any)
+            });
+        });
+    };
+    
 
     // Configuration for react-dropzone
-    const { getInputProps, getRootProps } = useDropzone({
+    const { getInputProps, getRootProps} = useDropzone({
         noKeyboard: true, // Disable keyboard interactions
         multiple: true, // Allow multiple files
         accept: {
             'image/png': ['.png'],
             'image/jpg': ['.jpg']
         },
+        onDropRejected,
         onDrop // Assign the onDrop function to handle file drops
     });
 

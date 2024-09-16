@@ -81,7 +81,22 @@ const ImageCanvas = ({ imageSrc, filters = [] }) => {
       image.src = imageSrc;
   }, [imageSrc, filters]);
 
-  return <canvas ref={canvasRef} width={620} height={500}></canvas>;
+  // Function to download the filtered image from the canvas
+  const downloadFilteredImage = () => {
+    const canvas = canvasRef.current;
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png'); // Get canvas data as image URL
+    link.download = 'filtered-image.png'; // Filename for the downloaded image
+    link.click();
+  };
+
+  return (
+    <>
+      <button onClick={downloadFilteredImage}>Download Image with Filters</button>
+      <canvas ref={canvasRef} width={620} height={500}></canvas>;
+    </>
+  )
+    
 };
 
 ImageCanvas.propTypes = {

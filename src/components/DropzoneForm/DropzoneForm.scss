@@ -70,7 +70,9 @@
 
 
 .editor-tools {
-    background-color: red;
+    @include glassmorphism;
+    color: white;
+    padding: 1rem;
     :nth-child(1) {
 
         display: flex;
