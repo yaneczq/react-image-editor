@@ -34,3 +34,37 @@ p, em {
 
 
 
+.canvas__container {
+  position: relative; /* Ensures that buttons are positioned relative to this container */
+  display: inline-block; /* Keeps the canvas and buttons together */
+}
+
+.canvas__editor-display {
+  display: block;
+  width: 100%;
+}
+
+.zoom-button {
+  position: absolute;
+  top: 10px;
+  padding: 6px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 10; /* Ensures buttons are above the canvas */
+}
+
+.zoom-button.zoom-in {
+  left: 10px; /* Adjust based on where you want the button */
+}
+
+.zoom-button.zoom-out {
+  left: 100px; /* Adjust to position the second button next to the first */
+}
+
+.zoom-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

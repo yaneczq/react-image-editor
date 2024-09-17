@@ -159,9 +159,9 @@ const DropzoneForm = () => {
             {loading ? (
                 <BarLoader color="#fff" loading={loading} size={50} />
             ) : (
-                <div className="form__editor">
+                <div className="canvas__editor">
                     {imageSrc && <ImageCanvas filters={filter} imageSrc={imageSrc} canvasRef={canvasRef} />}
-                    <div className="form__editor-slider-container">
+                    <div className="canvas__editor-slider-container">
                         {filter.map((x, index) => (
                             <div className="slider" key={index}>
                                 <label htmlFor={`customRange${index}`}>{x.name}</label>
@@ -179,7 +179,7 @@ const DropzoneForm = () => {
                         ))}
                     </div>
 
-                    <div className="form__editor-actions">
+                    <div className="canvas__editor-actions">
                         <button onClick={resetStorageAndReload}>Reset Storage</button>
                         <button onClick={() => downloadFilteredImage(canvasRef)}>
                             Download Image with Filters

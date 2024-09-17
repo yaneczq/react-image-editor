@@ -1,10 +1,11 @@
 // @LATEST VERSION
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes for validation
 
 const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
-  
+  const [zoom, setZoom] = useState(1); // Add zoom state
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -44,23 +45,37 @@ const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
       
       // Apply the filter to the canvas
       ctx.filter = filterString;
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+       // Calculate the zoom dimensions
+      const zoomWidth = canvas.width * zoom;
+      const zoomHeight = canvas.height * zoom;
+      const offsetX = (canvas.width - zoomWidth) / 2;
+      const offsetY = (canvas.height - zoomHeight) / 2;
+
+
+      ctx.drawImage(image, offsetX, offsetY, zoomWidth, zoomHeight);
     };
 
     image.src = imageSrc;
-  }, [imageSrc, filters, canvasRef]);
+  }, [imageSrc, filters, zoom, canvasRef]);
 
   return (
-    <>
+    <div className="canvas__container">
       <canvas
-        className='form__editor-display'
+        className='canvas__editor-display'
         ref={canvasRef}
         width={492}
         height={492 * 0.75}
-      >
+      ></canvas>
 
-      </canvas>
-    </>
+      {/* Zoom controls */}
+      <button className="zoom-button zoom-in" onClick={() => setZoom(zoom + 0.1)}>
+        Zoom In
+      </button>
+      <button className="zoom-button zoom-out" onClick={() => setZoom(zoom - 0.1)} disabled={zoom <= 0.5}>
+        Zoom Out
+      </button>
+    </div>
   );
 };
 

@@ -50,7 +50,7 @@
 }
 
 
-.form__editor {
+.canvas__editor {
     // @include glassmorphism;
     color: $onix;
     border: 2cqi solid rgb(255, 1, 1);
@@ -58,7 +58,7 @@
     background-color: rgb(54, 54, 54);
     padding: 2rem;
 
-    .form__editor-slider-container {
+    .canvas__editor-slider-container {
         padding: 2rem;
             border: 2px dashed $onix;
             border-radius: 12px;
@@ -81,18 +81,8 @@
         }
     }
 
-    .form__editor-display {
-            position: relative;
-            max-width: 100%;
-            padding: 0.25rem;
-            border: 2px dashed $onix;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-self: center;
-    }
     
-    .form__editor-actions{
+    .canvas__editor-actions{
         border:  2px dashed $onix;
         border-radius: 12px;
 
