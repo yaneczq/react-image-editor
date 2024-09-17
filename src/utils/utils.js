@@ -1,5 +1,4 @@
 // utils.js
-
 /**
  * Save an array of images to local storage.
  * @param {Array<File>} files - The array of File objects to save.
@@ -71,4 +70,14 @@ export const resetStorageAndReload = () => {
 
   // Optional: Reload the page to clear any in-memory state
   window.location.reload();
+};
+
+
+// utils.js
+export const downloadFilteredImage = (canvasRef) => {
+  const canvas = canvasRef.current;
+  const link = document.createElement('a');
+  link.href = canvas.toDataURL('image/png'); // Get canvas data as image URL
+  link.download = 'filtered-image.png'; // Filename for the downloaded image
+  link.click();
 };

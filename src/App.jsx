@@ -12,9 +12,7 @@ const App = () => {
     };
 
     return (
-        <div className='app'>
             <DropzoneForm onFilesAccepted={handleFilesAccepted} />
-        </div>
     );
 };
 

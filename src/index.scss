@@ -1,68 +1,36 @@
-@import "./styles/variables.scss";
+// User Defined styles
+@import "./styles/breakpoints";
+@import "./styles/effects";
+@import "./styles/spacing";
+@import "./styles/typography";
+@import "./styles/colors";
 
-
+// IMPORTANT: Imported below, to read and use the user defined styles
+// DropzoneForm.jsx styles. 
 @import "./components/DropzoneForm/DropzoneForm.scss";
 
 
+
+
 body,html {
-    margin: 0;
-    padding: 0;
     font-family: "Inter", sans-serif;
-    background-color: black;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.app {
-    height: 88vh;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
-h3 {
-    margin: 0;
-}
-ul {
+
+// Reset default margin & padding
+body, html, h1, ul, p, em {
     margin: 0;
     padding: 0;
-}
-
-h2 {
-    color: $grey-500;
-    font-size: $font-size-xs;
 }
 
 p, em {
-    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
 
 
-canvas {
-    @include glassmorphism();
 
-    width: 50vw;
-    margin: 0;
-    padding: 0.5rem;
-    border-radius: 12px;
-}
-
-button  {
-    @include glassmorphism();
-    padding: 1rem 2rem;
-    color: $grey-500;
-    border-radius: 8px;
-    transition: 0.5s;
-    &:hover {
-        border-color: $error;
-        color: $error;
-        cursor: pointer;
-        transition: 0.5s ease-out;
-    }
-}
 

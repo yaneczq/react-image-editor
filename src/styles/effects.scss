@@ -1,0 +1,27 @@
+// Glassmorphism Mixin
+@mixin glassmorphism(
+  $bg-color: rgba(255, 255, 255, 0.055),
+  $blur: 5px,
+  $border-radius: 15px,
+  $box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1),
+  $border: 1px solid rgba(255, 255, 255, 0.2)
+) {
+  background: $bg-color;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur); // Safari support
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  border: $border;
+}
+
+@mixin blue-shadow(
+  $x: -4px,
+  $y: 12px,
+  $blur: 35px,
+  $spread: 0px,
+  $color: rgb(2, 7, 58)
+) {
+  -webkit-box-shadow: $x $y $blur $spread $color;
+  -moz-box-shadow: $x $y $blur $spread $color;
+  box-shadow: $x $y $blur $spread $color;
+}

@@ -1,20 +1,22 @@
 import { useDropzone } from "react-dropzone";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ImageCanvas from "../ImageCanvas/ImageCanvas";
 import { BarLoader } from "react-spinners";
 
-import { saveImagesToLocalStorage, loadImagesFromLocalStorage, resetStorageAndReload } from "../../utils/utils";
+import { downloadFilteredImage, saveImagesToLocalStorage, loadImagesFromLocalStorage, resetStorageAndReload } from "../../utils/utils";
+
 const defStyle = [
     { id: 0, name: "Grayscale", value: 0 },
     { id: 1, name: "Sepia", value: 0 },
     { id: 2, name: "Opacity", value: 100 },
     { id: 3, name: "Invert", value: 0 },
     { id: 4, name: "Hue-Rotate", value: 0 },
-    { id: 5, name: "Brightness", value: 20 },
-    { id: 6, name: "Contrast", value: 20 },
-    { id: 7, name: "Saturate", value: 10 },
+    { id: 5, name: "Brightness", value: 100 },
+    { id: 6, name: "Contrast", value: 100 },
+    { id: 7, name: "Saturate", value: 25 },
     { id: 8, name: "Blur", value: 0 }
-  ];
+];
+
 const utilityFunc = (url) => {
     return () => {
         if (url) {
@@ -23,12 +25,9 @@ const utilityFunc = (url) => {
     };
 }
 
-
-
 const DropzoneForm = () => {
     const [filter, setFilter] = useState(defStyle);
-
-
+    const canvasRef = useRef(null);
 
     // State to hold the list of accepted files
     const [acceptedFiles, setAcceptedFiles] = useState([]);
@@ -50,31 +49,6 @@ const DropzoneForm = () => {
 
         utilityFunc()
     }, []);
-
-    // // Function to handle files dropped by the user
-    // const onDrop = (files) => {
-    //     setLoading(true); // Start loading
-    //     new Promise((resolve) => {
-    //         setTimeout(() => {
-    //             // Update the list of accepted files
-    //             setAcceptedFiles(prevFiles => {
-    //                 const updatedFiles = [...prevFiles, ...files];
-    //                 saveImagesToLocalStorage(updatedFiles);
-    //                 return updatedFiles;
-    //             });
-                
-    //             if (files[0]) {
-    //                 const url = URL.createObjectURL(files[0]);
-    //                 setImageSrc(url);
-    //             }
-
-    //             resolve();
-    //         }, 1000);
-    //     }).then(() => {
-    //         setLoading(false);
-    //         alert("Succes")
-    //     });
-    // };
 
     const onDrop = (files) => {
         setLoading(true); // Start loading
@@ -120,11 +94,10 @@ const DropzoneForm = () => {
             alert("Success!");
         });
     };
-    
 
     const onDropRejected = (rejectedFiles) => {
         rejectedFiles.forEach(rejected => {
-            const { file, errors } = rejected; // Properly access file and errors
+            const { file, errors } = rejected;
     
             errors.forEach(err => {
                 if (err.code === "file-invalid-type") {
@@ -134,132 +107,87 @@ const DropzoneForm = () => {
             });
         });
     };
-    
 
     // Configuration for react-dropzone
-    const { getInputProps, getRootProps} = useDropzone({
-        noKeyboard: true, // Disable keyboard interactions
-        multiple: true, // Allow multiple files
+    const { getInputProps, getRootProps } = useDropzone({
+        noKeyboard: true,
+        multiple: true,
         accept: {
             'image/png': ['.png'],
             'image/jpg': ['.jpg']
         },
         onDropRejected,
-        onDrop // Assign the onDrop function to handle file drops
+        onDrop
     });
 
-    // Function to handle selecting an image from the list
     const handleImageSelect = (file) => {
         const url = URL.createObjectURL(file);
         setImageSrc(url);
     };
 
-    // // const truncateFileName = (fileName) => {
-    // //     // Ensure fileName is a string
-    // //     if (typeof fileName !== 'string') return '';
-
-
-    // //     const maxLength = 12;
-    // //     if (fileName.length <= maxLength) return fileName;
-
-    // //     return `${fileName.substring(0, maxLength - 3)}...`;
-    // //   };
-
-    // // const truncateFileName = (fileName) => 
-    //     typeof fileName === 'string' && fileName.length > 12 
-    //     ? `${fileName.slice(0, 9)}...` 
-    //     : fileName || '';
-    
-        
-
-
-    // Generate a list of uploaded files with clickable items to select an image
-    
-
-    
-    function onFilterChange(e) {
+    const onFilterChange = (e) => {
         const filterName = e.target.name;
         const filterId = filter.findIndex((f) => f.name === filterName);
-    
+
         if (filterId !== -1) {
             const newFilter = [...filter];
-            // Number(e.target.value) converts the slider value from a string to a number before updating the state.
-            newFilter[filterId] = { ...newFilter[filterId], value: Number(e.target.value) }; // Convert value to a number
+            newFilter[filterId] = { ...newFilter[filterId], value: Number(e.target.value) };
             setFilter(newFilter);
         }
     }
-    
+
     const acceptedFileItems = acceptedFiles.map((file, index) => (
-
-        /* key={file.path || index} 
-
-        Unique Key: Using file.path as a key is ideal if it's guaranteed to be unique. 
-        If {file.path} isn't unique, using the index of the item in the array can be a 
-        fallback, though it’s less ideal since it can lead to issues if the list changes 
-        order.Fallback to Index: If you use the index as a key, be aware that it can cause
-        problems if the list is reordered or items are added/removed. It’s generally better
-        to use a unique identifier from the data itself. */
-        
         <li key={file.path || index} onClick={() => handleImageSelect(file)} style={{ cursor: 'pointer' }}>
             {file.path} - {file.size} bytes
         </li>
     ));
 
     return (
-        <>
-            <div className="dropzone__container">
-                {/* Dropzone area for file upload */}
-                <div {...getRootProps({ className: 'dropzone' })}>
-                    <input {...getInputProps()} />
-                    <p>Drag and drop some files here, or click to select files</p>
-                    <em>Available formats: jpg, png, bpm..</em>
-                </div>
+        <div className="form">
+            {/* Dropzone area for file upload */}
+            <div {...getRootProps({ className: 'form__dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag and drop some files here, or click to select files</p>
+                <em>Available formats: jpg, png, bpm..</em>
             </div>
 
+            <div className="form__browser">
+                <h1>Image Browser</h1>
+                <ul>{acceptedFileItems}</ul>
+            </div>
 
-            <div className="image-editor">
-
-                <div className="image-browser">
-                        <h2>Image Browser</h2>
-                        {/* Display the list of accepted files */}
-                        <ul>{acceptedFileItems}</ul>
-                </div>
-
-                <div className="display">
-                    {loading ? (
-                        <BarLoader color="#fff" loading={loading} size={50}/>
-                    ) : (
-                        <div className="editor-tools">
-                            {imageSrc && <ImageCanvas filters={filter} imageSrc={imageSrc} />}
-                            {filter.map((x, index) => (
+            {loading ? (
+                <BarLoader color="#fff" loading={loading} size={50} />
+            ) : (
+                <div className="form__editor">
+                    {imageSrc && <ImageCanvas filters={filter} imageSrc={imageSrc} canvasRef={canvasRef} />}
+                    <div className="form__editor-slider-container">
+                        {filter.map((x, index) => (
                             <div className="slider" key={index}>
-                                <span
-                                htmlFor="customRange1"
-            
-                                >
-                                {x.name}
-                                </span>
+                                <label htmlFor={`customRange${index}`}>{x.name}</label>
                                 <input
-                                type="range"
-                                id="customRange1"
-                                value={x.value}
-                                min="0"
-                                max="100"
-                                name={x.name}
-                                onChange={onFilterChange}
+                                    type="range"
+                                    id={`customRange${index}`}
+                                    value={x.value}
+                                    min="0"
+                                    max="100"
+                                    name={x.name}
+                                    onChange={onFilterChange}
                                 />
+                                {x.value}
                             </div>
-                            ))}
-                        </div>
-                    )}
+                        ))}
+                    </div>
+
+                    <div className="form__editor-actions">
+                        <button onClick={resetStorageAndReload}>Reset Storage</button>
+                        <button onClick={() => downloadFilteredImage(canvasRef)}>
+                            Download Image with Filters
+                        </button>
+                    </div>
                 </div>
-
-            </div>
-
-            <button onClick={resetStorageAndReload}>
-                Reset Storage
-            </button>
-        </>
+            )}
+        </div>
     );
 };
 
