@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ImageCanvas from "../ImageCanvas/ImageCanvas";
 import { BarLoader } from "react-spinners";
 
-import { downloadFilteredImage, saveImagesToLocalStorage, loadImagesFromLocalStorage, resetStorageAndReload } from "../../utils/utils";
+import { cleanupObjectURL, downloadFilteredImage, saveImagesToLocalStorage, loadImagesFromLocalStorage, resetStorageAndReload } from "../../utils/utils";
 
 const defStyle = [
     { id: 0, name: "Grayscale", value: 0 },
@@ -17,17 +17,38 @@ const defStyle = [
     { id: 8, name: "Blur", value: 0 }
 ];
 
-const utilityFunc = (url) => {
-    return () => {
-        if (url) {
-            URL.revokeObjectURL(url);
-        }
-    };
-}
 
 const DropzoneForm = () => {
     const [filter, setFilter] = useState(defStyle);
     const canvasRef = useRef(null);
+    
+    const [savedPresets, setSavedPresets] = useState([]);
+    const [selectedPreset, setSelectedPreset] = useState(null);
+
+    const saveCurrentPreset = () => {
+        const currentSetup = { id: savedPresets.length + 1, filters: filter };
+        const updatedPresets = [...savedPresets, currentSetup];
+        setSavedPresets(updatedPresets);
+        localStorage.setItem('savedPresets', JSON.stringify(updatedPresets));
+    };
+
+    // Function to delete a preset
+    const deletePreset = (presetId) => {
+        const updatedPresets = savedPresets.filter(preset => preset.id !== presetId);
+        setSavedPresets(updatedPresets);
+        localStorage.setItem('savedPresets', JSON.stringify(updatedPresets));
+        if (selectedPreset?.id === presetId) {
+            setSelectedPreset(null);
+        }
+    };
+
+    // Function to load a saved preset
+    const loadPreset = (preset) => {
+        setFilter(preset.filters);
+        setSelectedPreset(preset);
+    };
+
+    
 
     // State to hold the list of accepted files
     const [acceptedFiles, setAcceptedFiles] = useState([]);
@@ -37,6 +58,12 @@ const DropzoneForm = () => {
 
     // Load saved images from local storage on component mount
     useEffect(() => {
+
+        const loadPresets = () => {
+            const presets = JSON.parse(localStorage.getItem('savedPresets')) || [];
+            setSavedPresets(presets);
+        };
+
         loadImagesFromLocalStorage().then(filesArray => {
             setAcceptedFiles(filesArray);
             if (filesArray[0]) {
@@ -47,7 +74,8 @@ const DropzoneForm = () => {
             console.error('Error loading saved images:', error);
         });
 
-        utilityFunc()
+        loadPresets()
+        cleanupObjectURL()
     }, []);
 
     const onDrop = (files) => {
@@ -160,7 +188,7 @@ const DropzoneForm = () => {
                 <BarLoader color="#fff" loading={loading} size={50} />
             ) : (
                 <div className="canvas__editor">
-                    {imageSrc && <ImageCanvas filters={filter} imageSrc={imageSrc} canvasRef={canvasRef} />}
+                    {imageSrc && <ImageCanvas filter={filter} imageSrc={imageSrc} canvasRef={canvasRef} />}
                     <div className="canvas__editor-slider-container">
                         {filter.map((x, index) => (
                             <div className="slider" key={index}>
@@ -185,6 +213,34 @@ const DropzoneForm = () => {
                             Download Image with Filters
                         </button>
                     </div>
+
+
+                    <button onClick={saveCurrentPreset}>Save Preset</button>
+                    <div className="preset-controls">
+                            <select
+                                value={selectedPreset?.id || ''}
+                                onChange={(e) => {
+                                    const selectedId = parseInt(e.target.value, 10);
+                                    const preset = savedPresets.find(p => p.id === selectedId);
+                                    if (preset) {
+                                        loadPreset(preset);
+                                    }
+                                }}
+                            >
+                                <option value="">Select a Preset</option>
+                                {savedPresets.map((preset) => (
+                                    <option key={preset.id} value={preset.id}>
+                                        Preset {preset.id}
+                                    </option>
+                                ))}
+                            </select>
+                            <button onClick={() => deletePreset(selectedPreset?.id)}>
+                                Delete Selected Preset
+                            </button>
+                        </div>
+                    
+                
+
                 </div>
             )}
         </div>

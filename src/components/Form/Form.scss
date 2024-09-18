@@ -9,7 +9,7 @@
     background-color: rgb(177, 177, 177);
 }
 
-.form__dropzone {
+.form__panel-dropzone {
     display: flex;
     flex-direction: column;
 
@@ -29,7 +29,7 @@
   }
 
 
-.form__browser {
+.form__panel-browser {
     color: $onix;
     border: 2px dashed $onix;
     border-radius: 12px;
@@ -58,7 +58,7 @@
     background-color: rgb(54, 54, 54);
     padding: 2rem;
 
-    .canvas__editor-slider-container {
+    .canvas__editor-slider__container {
         padding: 2rem;
             border: 2px dashed $onix;
             border-radius: 12px;

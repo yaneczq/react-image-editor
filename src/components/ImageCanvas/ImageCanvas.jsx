@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes for validation
 
-const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
+const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
   const [zoom, setZoom] = useState(1); // Add zoom state
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,7 +18,7 @@ const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Apply the CSS filter string
-      const filterString = filters.map(f => {
+      const filterString = filter.map(f => {
         const { name, value } = f;
         switch (name) {
           case 'Grayscale':
@@ -57,7 +58,12 @@ const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
     };
 
     image.src = imageSrc;
-  }, [imageSrc, filters, zoom, canvasRef]);
+  }, [imageSrc, filter, zoom, canvasRef]);
+
+
+
+
+
 
   return (
     <div className="canvas__container">
@@ -75,13 +81,14 @@ const ImageCanvas = ({ imageSrc, filters = [], canvasRef }) => {
       <button className="zoom-button zoom-out" onClick={() => setZoom(zoom - 0.1)} disabled={zoom <= 0.5}>
         Zoom Out
       </button>
+
     </div>
   );
 };
 
 ImageCanvas.propTypes = {
   imageSrc: PropTypes.string.isRequired,
-  filters: PropTypes.arrayOf(
+  filter: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired

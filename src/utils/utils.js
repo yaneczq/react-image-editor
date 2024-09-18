@@ -81,3 +81,13 @@ export const downloadFilteredImage = (canvasRef) => {
   link.download = 'filtered-image.png'; // Filename for the downloaded image
   link.click();
 };
+
+
+
+export const cleanupObjectURL = (url) => {
+  return () => {
+      if (url) {
+          URL.revokeObjectURL(url);
+      }
+  };
+}
