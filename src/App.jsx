@@ -25,7 +25,7 @@ import ImageCanvas from "./components/ImageCanvas/ImageCanvas";
 import { useDropzone } from "react-dropzone";
 import { useState, useEffect, useRef } from "react";
 import { BarLoader } from "react-spinners";
-import { FiAlertCircle, FiDownload, FiTrash2, FiPlusCircle } from "react-icons/fi";
+import { FiAlertCircle, FiDownload, FiTrash2, FiPlusCircle, FiRefreshCcw } from "react-icons/fi";
 import {
   cleanupObjectURL,
   downloadFilteredImage,
@@ -279,7 +279,6 @@ const App = () => {
         <div className="canvas__editor">
 
         <div className="canvas">
-                <h1>ello to canvas</h1>
                     {imageSrc && (
                     <ImageCanvas
                     filter={filter}
@@ -291,13 +290,14 @@ const App = () => {
 
         <div className="canvas__controls">
 
+              <div className="app__header" onClick={resetFilter}>
+                <h1>Edit image</h1>
+                <p>You can reset styles on the right.</p>
+              </div>
 
-            <button className="preset__btn" onClick={resetFilter}>
-                    Reset
-            </button>
             <div className="tools">
+                <button className="preset__btn" onClick={resetFilter}><FiRefreshCcw /></button>
                 <select
-                className="preset__btn"
                 value={selectedPreset?.id || ""}
                 onChange={(e) => {
                     const selectedId = parseInt(e.target.value, 10);
@@ -335,7 +335,7 @@ const App = () => {
                     name={x.name}
                     onChange={onFilterChange}
                     />
-                    {x.value}
+                    <p>{x.value}</p>
                 </div>
                 ))}
             </div>

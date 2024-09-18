@@ -1,10 +1,11 @@
 .panel {
     display: flex;
     flex-direction: column;
-    padding: 12px;
     gap: 48px;
-    width: 236px;
-    border: 1px solid $grayscale__200;
+    height: 70%;
+    justify-content: center;
+    // border: 1px solid $grayscale__200;
+    background-color: $grayscale__50;
 }
 
 .panel__uploader {
@@ -23,7 +24,7 @@
 
 .dropzone {
     margin-top: 12px;
-    border: 2.5px dashed $blue;
+    border: 2.5px dashed $grayscale__700;
     border-radius: 12px;
 
     padding: 24px;
@@ -36,6 +37,10 @@
     gap: 12px;
 
     font-size: $font-size-xs;
+    &:hover {
+        border-color: $blue;
+        cursor: pointer;
+    }
 
     .status__message {
         font-weight: 500;

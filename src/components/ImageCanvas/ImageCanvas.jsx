@@ -65,12 +65,12 @@ const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
       <canvas
         className="canvas__editor-display"
         ref={canvasRef}
-        width={492}
-        height={492 * 0.75}
+        width={400}
+        height={350}
       ></canvas>
 
       {/* Zoom controls */}
-      <button
+      {/* <button
         className="zoom-button zoom-in"
         onClick={() => setZoom(zoom + 0.1)}
       >
@@ -82,7 +82,7 @@ const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
         disabled={zoom <= 0.5}
       >
         Zoom Out
-      </button>
+      </button> */}
     </div>
   );
 };

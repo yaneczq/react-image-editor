@@ -1,0 +1,67 @@
+  .canvas__editor {
+    width: 100vw;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $grayscale__100;
+  }
+
+  canvas {
+    position: relative;
+      background-color: $grayscale__100;
+      display: flex;
+      align-items: center;
+      padding: 4rem;
+      border: 2px solid $grayscale__700;
+      justify-content: center;
+    }
+
+  .canvas__controls {
+    background-color: $grayscale__50;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 48px;
+    height: 100%;
+  }
+  
+
+  .filters__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .user-actions {
+    display: flex;
+    flex-direction: row;
+    button {
+      justify-content: space-between;
+    }
+  }
+  
+  .tools {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .slider__container {
+    display: grid;
+    grid-template-columns: auto auto ;
+  }
+  
+  .slider {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: $font-size-2xs;
+    }
+    p {
+      font-size: $font-size-3xs;
+    }
+  }
