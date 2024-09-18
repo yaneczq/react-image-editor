@@ -1,3 +1,4 @@
+
 // User Defined styles
 @import "./styles/breakpoints";
 @import "./styles/effects";
@@ -7,7 +8,7 @@
 
 // IMPORTANT: Imported below, to read and use the user defined styles
 // DropzoneForm.jsx styles. 
-@import "./components/Form/Form.scss";
+@import "./components/Form/Panel.scss";
 
 
 
@@ -25,10 +26,6 @@ body, html, h1, ul, p, em {
     padding: 0;
 }
 
-p, em {
-    display: flex;
-    flex-direction: column;
-}
 
 
 
@@ -67,4 +64,39 @@ p, em {
 .zoom-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+
+
+
+.app__header {
+  h1 {
+    font-weight: 700;
+    font-size: $font-size-md;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: $font-size-xs;
+
+  }
+}
+
+button {
+  color: white;
+  border: none;
+  font-size: $font-size-xxs;
+  background-color: $grayscale__900;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.app__info {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  p {
+    font-size: $font-size-xxs;
+    font-weight: 600;
+  }
 }

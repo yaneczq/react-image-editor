@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Form from './components/Form/Form';
+import Panel from './components/Form/Panel'
 
 const App = () => {
     const [setUploadedFiles] = useState([]);
@@ -12,8 +13,9 @@ const App = () => {
     };
 
     return (
-            <Form onFilesAccepted={handleFilesAccepted} />
-    );
+            <Panel />
+            // <Form onFilesAccepted={handleFilesAccepted} />
+    )
 };
 
 export default App;

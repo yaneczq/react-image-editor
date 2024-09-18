@@ -1,0 +1,103 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 48px;
+    width: 236px;
+    border: 1px solid $grayscale__200;
+}
+
+.panel__uploader {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 236px;
+}
+
+.panel__browser {
+    display: flex;
+    flex-direction: column;
+    width: 236px;
+    gap: 12px;
+}
+
+
+.dropzone {
+    border: 2.5px dashed $blue;
+    border-radius: 12px;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    // Fixed width
+    gap: 12px;
+
+    font-size: $font-size-xs;
+
+    .status__message {
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        height: 30px;
+        justify-content: space-between;
+        em {
+            font-size: $font-size-xxs;
+        }
+    }
+}
+
+.list__container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 112px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.list__item {
+    padding: 6px;
+    width: 224px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: $font-size-xxs;
+    font-weight: 600;
+    border-radius: 2px;
+    p {
+        width: 128px;
+        font-weight: 400;
+    }
+    em {
+        width: 64px;
+    }
+    &:hover {
+        background-color: $grayscale__100;
+        cursor: pointer;
+    }
+}
+
+
+.clean__storage {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: $grayscale__300;
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 12px 0px;
+        &:hover {
+            color: $grayscale__900;
+            cursor: pointer;
+            background-color: $grayscale__400;
+        }
+    }
+}

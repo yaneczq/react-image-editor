@@ -1,18 +1,16 @@
-/* Base font size */
-$font-size-base: 16px; 
 
-/* Minor Third Scale for Mobile */
-$font-size-xs: calc(var(--font-size-base) / 1.200); /* Extra Small */
-$font-size-sm: var(--font-size-base); /* Small */
-$font-size-md: calc(var(--font-size-base) * 1.200); /* Medium */
-$font-size-lg: calc(var(--font-size-md) * 1.200); /* Large */
-$font-size-xl: calc(var(--font-size-lg) * 1.200); /* Extra Large */
+:root {
+    --font-size-base: 16px;
+    /* Minor Third Scale for Mobile */
+
+}
 
 /* Perfect Fourth Scale for Web */
-$font-size-xs: calc(var(--font-size-base) / 1.333); /* Extra Small */
-$font-size-sm: var(--font-size-base); /* Small */
-$font-size-md: calc(var(--font-size-base) * 1.333); /* Medium */
-$font-size-lg: calc(var(--font-size-md) * 1.333); /* Large */
-$font-size-xl: calc(var(--font-size-lg) * 1.333); /* Extra Large */
+$font-size-xxs: 11.08px;
+$font-size-xs: 13.33px;
+$font-size-base: 16px;  
+$font-size-md: 19.2px;
+$font-size-lg: 23.04px;
+$font-size-xl: 27.65px;
 
 
