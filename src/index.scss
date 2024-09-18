@@ -1,74 +1,53 @@
 
 // User Defined styles
-@import "./styles/breakpoints";
-@import "./styles/effects";
-@import "./styles/spacing";
-@import "./styles/typography";
-@import "./styles/colors";
+@import "./styles/variables/breakpoints";
+@import "./styles/variables/effects";
+@import "./styles/variables/spacing";
+@import "./styles/variables/typography";
+@import "./styles/variables/colors";
 
-// IMPORTANT: Imported below, to read and use the user defined styles
-// DropzoneForm.jsx styles. 
-@import "./components/Form/Panel.scss";
-
+// IMPORTANT: Imported below, to load and use the variables
+@import "./styles/Panel.scss";
+@import "./App.scss";
 
 
 
 body,html {
     font-family: "Inter", sans-serif;
-
     height: 100%;
     width: 100%;
 }
 
-// Reset default margin & padding
+// Reset margin and padding
 body, html, h1, ul, p, em {
     margin: 0;
     padding: 0;
 }
 
-
-
-
-
-
-.canvas__container {
-  position: relative; /* Ensures that buttons are positioned relative to this container */
-  display: inline-block; /* Keeps the canvas and buttons together */
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: $grayscale__900;
+  color: $grayscale__100;
+  border-radius: 8px;
+  padding: 12px 16px;
+  height: 36px;
+  &:hover {
+      color: $grayscale__900;
+      cursor: pointer;
+      background-color: $grayscale__400;
+  }
 }
 
-.canvas__editor-display {
-  display: block;
+.preset__btn {
+  border: 0.5px solid $grayscale__300;
+  background-color: $grayscale__50;
+  color: $grayscale__500;
+  border-radius: 2px;
   width: 100%;
 }
-
-.zoom-button {
-  position: absolute;
-  top: 10px;
-  padding: 6px 12px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 10; /* Ensures buttons are above the canvas */
-}
-
-.zoom-button.zoom-in {
-  left: 10px; /* Adjust based on where you want the button */
-}
-
-.zoom-button.zoom-out {
-  left: 100px; /* Adjust to position the second button next to the first */
-}
-
-.zoom-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-
-
-
 .app__header {
   h1 {
     font-weight: 700;
@@ -82,21 +61,55 @@ body, html, h1, ul, p, em {
   }
 }
 
-button {
-  color: white;
-  border: none;
-  font-size: $font-size-xxs;
-  background-color: $grayscale__900;
-  font-weight: 600;
-  border-radius: 8px;
-}
-
 .app__info {
   display: flex;
   gap: 4px;
   align-items: center;
+  justify-content: start;
+  color: $grayscale__300;
   p {
-    font-size: $font-size-xxs;
-    font-weight: 600;
+    font-size: $font-size-3xs;
+    font-weight: 500;
   }
+}
+
+
+.canvas {
+  background-color: red;
+  padding: 2rem;
+}
+
+.canvas__editor {
+  display: flex;
+  flex-direction: row;
+}
+
+.cavnas__controls {
+
+}
+
+
+  .user-actions {
+      display: flex;
+      flex-direction: row;
+
+      button {
+        justify-content: space-between;
+      }
+  }
+
+  .tools {
+    display: flex;
+    flex-direction: row;
+  }
+
+.slider__container {
+  display: grid;
+  grid-template-columns: auto auto ;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+ 
 }
