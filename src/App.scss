@@ -94,7 +94,7 @@ button {
   // }
 
   .filters-overlay {
-    position: relative;
+    position: absolute;
     bottom: 68px;
     width: 100%; /* Full width */
     height: 35vh; /* Fixed height */
@@ -146,7 +146,7 @@ button {
     width: 100%;
     bottom: 0;
     flex-direction: row;
-    height: 7vh;
+    height: 10vh;
     border-right: none;
     border-top: 2px solid $grayscale__800;
   }

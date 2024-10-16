@@ -1,7 +1,7 @@
 // FILTERS
 .filters-overlay {
   border-left: 2px solid $grayscale__900;
-  position: relative;
+  position: fixed;
   background-color: $grayscale__950;
   right: 0;
   z-index: 2;
