@@ -40,32 +40,32 @@ h4 {
   padding: 0;
 }
 
-input[type="range"] {
-  appearance: none; /* Remove default appearance */
+// input[type="range"] {
+//   appearance: none; /* Remove default appearance */
 
-  width: 100%; /* Full width */
-  height: 5px; /* Height of the track */
-  background: $grayscale__700; /* Track background color */
-  border-radius: 4px;
-  outline: none; /* Remove outline when focused */
-}
+//   width: 100%; /* Full width */
+//   height: 5px; /* Height of the track */
+//   background: $grayscale__700; /* Track background color */
+//   border-radius: 4px;
+//   outline: none; /* Remove outline when focused */
+// }
 
-/* Style the slider thumb */
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none; /* Remove default appearance */
-  appearance: none; /* For non-webkit browsers */
-  width: 15px; /* Thumb width */
-  height: 15px; /* Thumb height */
-  border-radius: 50%; /* Round shape */
-  outline: 2px solid $grayscale__500;
-  outline-offset: -2px;
-  background: $grayscale__700; /* Thumb color */
-  cursor: pointer; /* Hand cursor */
-}
+// /* Style the slider thumb */
+// input[type="range"]::-webkit-slider-thumb {
+//   appearance: none; /* Remove default appearance */
+//   appearance: none; /* For non-webkit browsers */
+//   width: 15px; /* Thumb width */
+//   height: 15px; /* Thumb height */
+//   border-radius: 50%; /* Round shape */
+//   outline: 2px solid $grayscale__500;
+//   outline-offset: -2px;
+//   background: $grayscale__700; /* Thumb color */
+//   cursor: pointer; /* Hand cursor */
+// }
 
-/* Style the thumb when active (while dragging) */
-input[type="range"]:active::-webkit-slider-thumb {
-  background: #0056b3; /* Darker blue when active */
-  transform: scale(1.2); /* Make the thumb slightly bigger */
-  outline-color: $grayscale__400;
-}
+// /* Style the thumb when active (while dragging) */
+// input[type="range"]:active::-webkit-slider-thumb {
+//   background: #0056b3; /* Darker blue when active */
+//   transform: scale(1.2); /* Make the thumb slightly bigger */
+//   outline-color: $grayscale__400;
+// }
