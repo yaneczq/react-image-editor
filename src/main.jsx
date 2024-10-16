@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+import Application from "./Application.jsx";
 import "./index.scss";
 
 createRoot(document.getElementById("root")).render(
   <>
-    <App />
+    <Application />
   </>,
 );
