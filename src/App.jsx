@@ -1,354 +1,218 @@
-// import { useState } from 'react';
-// import Form from './components/Form/Form';
-// import Panel from './components/Form/Panel'
-
-// const App = () => {
-//     const [setUploadedFiles] = useState([]);
-
-//     const handleFilesAccepted = (files) => {
-//         // Debugging: log the files when accepted
-//         console.log('Files accepted in DropzoneForm:', files);
-
-//         setUploadedFiles(files);
-//     };
-
-//     return (
-//             <Panel />
-//             // <Form onFilesAccepted={handleFilesAccepted} />
-//     )
-// };
-
-// export default App;
-
-import ImageCanvas from "./components/ImageCanvas/ImageCanvas";
-
+import ImageCanvas from "./components/ImageCanvas";
 import { useDropzone } from "react-dropzone";
 import { useState, useEffect, useRef } from "react";
-import { BarLoader } from "react-spinners";
-import { FiAlertCircle, FiDownload, FiTrash2, FiPlusCircle, FiRefreshCcw } from "react-icons/fi";
+import { FiList, FiSliders, FiCornerDownLeft, FiUpload } from "react-icons/fi";
 import {
   cleanupObjectURL,
-  downloadFilteredImage,
   saveImagesToLocalStorage,
   loadImagesFromLocalStorage,
-  resetStorageAndReload,
+  defStyle,
 } from "./utils/utils";
 
-const defStyle = [
-  { id: 0, name: "Grayscale", value: 0 },
-  { id: 1, name: "Sepia", value: 0 },
-  { id: 2, name: "Opacity", value: 100 },
-  { id: 3, name: "Invert", value: 0 },
-  { id: 4, name: "Hue-Rotate", value: 0 },
-  { id: 5, name: "Brightness", value: 100 },
-  { id: 6, name: "Contrast", value: 100 },
-  { id: 7, name: "Saturate", value: 25 },
-  { id: 8, name: "Blur", value: 0 },
-];
-
 const App = () => {
-  const [filter, setFilter] = useState(defStyle);
+  const [filter, setFilter] = useState(
+    defStyle.light.concat(defStyle.color, defStyle.blur),
+  );
   const canvasRef = useRef(null);
-
-  const [savedPresets, setSavedPresets] = useState([]);
-  const [selectedPreset, setSelectedPreset] = useState(null);
-
-  const saveCurrentPreset = () => {
-    const currentSetup = { id: savedPresets.length + 1, filters: filter };
-    const updatedPresets = [...savedPresets, currentSetup];
-    setSavedPresets(updatedPresets);
-    localStorage.setItem("savedPresets", JSON.stringify(updatedPresets));
-  };
-
-  // Function to delete a preset
-  const deletePreset = (presetId) => {
-    const updatedPresets = savedPresets.filter(
-      (preset) => preset.id !== presetId,
-    );
-    setSavedPresets(updatedPresets);
-    localStorage.setItem("savedPresets", JSON.stringify(updatedPresets));
-    if (selectedPreset?.id === presetId) {
-      setSelectedPreset(null);
-    }
-  };
-
-  // Function to load a saved preset
-  const loadPreset = (preset) => {
-    setFilter(preset.filters);
-    setSelectedPreset(preset);
-  };
-
-  // State to hold the list of accepted files
   const [acceptedFiles, setAcceptedFiles] = useState([]);
-  // State to hold the URL of the currently displayed image
   const [imageSrc, setImageSrc] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isFileListOpen, setIsFileListOpen] = useState(false);
 
-  // Load saved images from local storage on component mount
   useEffect(() => {
-    const loadPresets = () => {
-      const presets = JSON.parse(localStorage.getItem("savedPresets")) || [];
-      setSavedPresets(presets);
-    };
-
     loadImagesFromLocalStorage()
       .then((filesArray) => {
         setAcceptedFiles(filesArray);
-        if (filesArray[0]) {
-          const url = URL.createObjectURL(filesArray[0]);
-          setImageSrc(url);
-        }
+        if (filesArray[0]) setImageSrc(URL.createObjectURL(filesArray[0]));
       })
-      .catch((error) => {
-        console.error("Error loading saved images:", error);
-      });
+      .catch((error) => console.error("Error loading saved images:", error));
 
-    loadPresets();
     cleanupObjectURL();
   }, []);
 
   const onDrop = (files) => {
-    setLoading(true); // Start loading
-
-    new Promise((resolve) => {
-      setTimeout(() => {
-        const newFiles = files.filter((file) => {
-          // Check for duplicates based on file name or size
-          const isDuplicate = acceptedFiles.some(
-            (existingFile) =>
-              existingFile.name === file.name &&
-              existingFile.size === file.size,
-          );
-
-          if (isDuplicate) {
-            alert(`File "${file.name}" is a duplicate and will not be added.`);
-            return false; // Exclude duplicate files
-          }
-
-          return true; // Include non-duplicate files
-        });
-
-        // If no valid files, return early
-        if (newFiles.length === 0) {
-          setLoading(false);
-          return;
-        }
-
-        // Update the list of accepted files
-        setAcceptedFiles((prevFiles) => {
-          const updatedFiles = [...prevFiles, ...newFiles];
-          saveImagesToLocalStorage(updatedFiles);
-          return updatedFiles;
-        });
-
-        if (newFiles[0]) {
-          const url = URL.createObjectURL(newFiles[0]);
-          setImageSrc(url);
-        }
-
-        resolve();
-      }, 1000);
-    }).then(() => {
-      setLoading(false);
-      navigator.storage.estimate().then(estimate => {
-        console.log(`Quota: ${estimate.quota}`);
-        console.log(`Usage: ${estimate.usage}`);
-      });
-      alert("Success!");
+    const newFiles = files.filter(
+      (file) =>
+        !acceptedFiles.some(
+          (existingFile) =>
+            existingFile.name === file.name && existingFile.size === file.size,
+        ),
+    );
+  
+    if (newFiles.length === 0) {
+      alert("No new files to add. Please check for duplicates.");
+      return;
+    }
+  
+    setAcceptedFiles((prevFiles) => {
+      const updatedFiles = [...prevFiles, ...newFiles];
+      saveImagesToLocalStorage(updatedFiles); // Ensure this works correctly
+      return updatedFiles;
     });
+  
+    if (newFiles[0]) {
+      setImageSrc(URL.createObjectURL(newFiles[0]));
+    }
+  
+    alert("Success!");
   };
+  
 
   const onDropRejected = (rejectedFiles) => {
-    rejectedFiles.forEach((rejected) => {
-      const { file, errors } = rejected;
-
+    rejectedFiles.forEach(({ file, errors }) => {
       errors.forEach((err) => {
         if (err.code === "file-invalid-type") {
           alert(
             `Error: File "${file.name}" is not a valid format. Please upload a .jpg or .png file.`,
           );
         }
-        // Handle other errors here (if any)
       });
     });
   };
 
-  // Configuration for react-dropzone
   const { getInputProps, getRootProps } = useDropzone({
     noKeyboard: true,
     multiple: 2,
-    accept: {
-      "image/png": [".png"],
-      "image/jpg": [".jpg"],
-    },
+    accept: { "image/png": [".png"], "image/jpg": [".jpg"] },
     onDropRejected,
     onDrop,
   });
 
-  const handleImageSelect = (file) => {
-    const url = URL.createObjectURL(file);
-    setImageSrc(url);
-  };
-
   const onFilterChange = (e) => {
-    const filterName = e.target.name;
-    const filterId = filter.findIndex((f) => f.name === filterName);
-
+    const filterId = filter.findIndex((f) => f.name === e.target.name);
     if (filterId !== -1) {
-      const newFilter = [...filter];
-      newFilter[filterId] = {
-        ...newFilter[filterId],
-        value: Number(e.target.value),
-      };
-      setFilter(newFilter);
+      setFilter((prev) => {
+        const newFilter = [...prev];
+        newFilter[filterId].value = Number(e.target.value);
+        return newFilter;
+      });
     }
-  };
-
-  const resetFilter = () => {
-    setFilter(defStyle);
   };
 
   const acceptedFileItems = acceptedFiles.map((file) => (
     <li
       className="list__item"
-      key={file.name}
-      onClick={() => handleImageSelect(file)}
+      key={`${file.name}-${file.size}-${file.lastModified}`} // Use file size and last modified timestamp to create a unique key
+      onClick={() => setImageSrc(URL.createObjectURL(file))}
       style={{ cursor: "pointer" }}
     >
       {file.name} | {file.size} bytes
     </li>
   ));
- 
+
+  const togglePanel = (setPanelState) => () => setPanelState((prev) => !prev);
+
   return (
     <div className="app">
-        
-      <div className="panel">
+      <nav className="navbar">
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          <FiUpload size={24} />
+        </div>
+        <div className="menu-icon" onClick={togglePanel(setIsFiltersOpen)}>
+          {isFiltersOpen ? <FiCornerDownLeft /> : <FiSliders />}
+        </div>
+        <div className="menu-icon" onClick={togglePanel(setIsFileListOpen)}>
+          {isFileListOpen ? <FiCornerDownLeft /> : <FiList />}
+        </div>
+      </nav>
+  
+      {imageSrc ? (
+  <ImageCanvas
+    filter={filter}
+    imageSrc={imageSrc}
+    canvasRef={canvasRef}
+  />
+) : (
+  <div {...getRootProps({ className: "empty__dropzone" })}>
+    <div className="status__message">
+      <p>No Files Uploaded</p>
+      <em>Max 5MB - total upload limit</em>
+    </div>
+  </div>
+)}
 
-        <div className="panel__uploader">
 
+      {isFiltersOpen && (
+        <div className="filters-overlay">
           <div className="app__header">
-            <h1>Drag & Drop an image</h1>
-            <p>Available formats: jpg, jpeg, png...</p>
-          </div>
-    
-          <div {...getRootProps({ className: "dropzone" })}>
-            {/* Probably will need a name change soon! */}
-            <input {...getInputProps()} />
-            <img
-              width="36"
-              height="44"
-              src="public/icons/app__icon.svg"
-              alt="file-icon"
-            />
-            <div className="status__message">
-              <p>
-                Drag and Drop your file(s) or <strong>browse</strong>
-              </p>
-              <em>Max 5MB - total upload limit</em>
-            </div>
-
+            <h1>CSS Filters</h1>
+            <p>Use sliders below to edit your image...</p>
           </div>
 
-          <div className="app__info">
-            <FiAlertCircle size={12}/>
-            <p>Remove files and clear local storage</p>
+          <div className="slider__container">
+            <h3>Light</h3>
+            {defStyle.light.map((x, index) => (
+              <div className="slider" key={index}>
+                <div className="slider-header">
+                  <label htmlFor={`customRange${index}`}>{x.name}</label>
+                  <p>{x.value}%</p>
+                </div>
+                <input
+                  type="range"
+                  id={`customRange${index}`}
+                  value={x.value}
+                  min="0"
+                  max="100"
+                  name={x.name}
+                  onChange={onFilterChange}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="slider__container">
+            <h3>Color</h3>
+            {defStyle.color.map((x, index) => (
+              <div className="slider" key={index}>
+                <div className="slider-header">
+                  <label htmlFor={`customRange${index}`}>{x.name}</label>
+                  <p>{x.value}%</p>
+                </div>
+                <input
+                  type="range"
+                  id={`customRange${index}`}
+                  value={x.value}
+                  min="0"
+                  max="100"
+                  name={x.name}
+                  onChange={onFilterChange}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="slider__container">
+            <h3>Blur</h3>
+            {defStyle.blur.map((x, index) => (
+              <div className="slider" key={index}>
+                <div className="slider-header">
+                  <label htmlFor={`customRange${index}`}>{x.name}</label>
+                  <p>{x.value}%</p>
+                </div>
+                <input
+                  type="range"
+                  id={`customRange${index}`}
+                  value={x.value}
+                  min="0"
+                  max="100"
+                  name={x.name}
+                  onChange={onFilterChange}
+                />
+              </div>
+            ))}
           </div>
         </div>
+      )}
 
-        <div className="panel__browser">
+      {isFileListOpen && (
+        <div className="filelist-overlay">
           <div className="app__header">
             <h1>Browse your files</h1>
             <p>Please select an image...</p>
           </div>
-
-          <div className="list__container">{acceptedFileItems}</div>
-        </div>
-
-        <div className="clean__storage">
-          <button onClick={resetStorageAndReload}>Clean Storage</button>
-          <div className="app__info">
-          <FiAlertCircle size={12}/>
-            <p>Remove files and clear local storage</p>
-          </div>
-        </div>
-      </div>
-
-      {loading ? (
-        <BarLoader color="#ff0000" loading={loading} size={50} />
-      ) : (
-        <div className="canvas__editor">
-
-        <div className="canvas">
-                    {imageSrc && (
-                    <ImageCanvas
-                    filter={filter}
-                    imageSrc={imageSrc}
-                    canvasRef={canvasRef}
-                    />
-                    )}
-        </div>
-
-        <div className="canvas__controls">
-
-              <div className="app__header" onClick={resetFilter}>
-                <h1>Edit image</h1>
-                <p>You can reset styles on the right.</p>
-              </div>
-
-            <div className="tools">
-                <button className="preset__btn" onClick={resetFilter}><FiRefreshCcw /></button>
-                <select
-                value={selectedPreset?.id || ""}
-                onChange={(e) => {
-                    const selectedId = parseInt(e.target.value, 10);
-                    const preset = savedPresets.find((p) => p.id === selectedId);
-                    if (preset) {
-                    loadPreset(preset);
-                    }
-                }}
-                >
-                <option value="">Select a Preset</option>
-                {savedPresets.map((preset) => (
-                    <option key={preset.id} value={preset.id}>
-                    Preset {preset.id}
-                    </option>
-                ))}
-                </select>
-                <button className="preset__btn" onClick={saveCurrentPreset}>
-                    <FiPlusCircle size={16}/>
-                </button>
-                <button className="preset__btn" onClick={() => deletePreset(selectedPreset?.id)}>
-                    <FiTrash2 size={16}/>
-                </button>
-            </div>
-
-            <div className="slider__container">
-                {filter.map((x, index) => (
-                <div className="slider" key={index}>
-                    <label htmlFor={`customRange${index}`}>{x.name}</label>
-                    <input
-                    type="range"
-                    id={`customRange${index}`}
-                    value={x.value}
-                    min="0"
-                    max="100"
-                    name={x.name}
-                    onChange={onFilterChange}
-                    />
-                    <p>{x.value}</p>
-                </div>
-                ))}
-            </div>
-
-            <div className="user-actions">
-                <button onClick={() => downloadFilteredImage(canvasRef)}>
-                Download <FiDownload size={20}/>
-                </button>
-            </div>
-        </div>
-
+          <div className="list">{acceptedFileItems}</div>
         </div>
       )}
+
     </div>
   );
 };

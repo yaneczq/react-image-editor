@@ -25,7 +25,6 @@ export const saveImagesToLocalStorage = (files) => {
     .catch((error) => {
       console.error("Local Storage is full, Please empty data", error);
       alert("Local Storage is full, Please empty data", error);
-
     });
 };
 
@@ -89,4 +88,20 @@ export const cleanupObjectURL = (url) => {
       URL.revokeObjectURL(url);
     }
   };
+};
+
+export const defStyle = {
+  light: [
+    { id: 0, name: "Opacity", value: 100 },
+    { id: 1, name: "Brightness", value: 100 },
+    { id: 2, name: "Contrast", value: 100 },
+  ],
+  color: [
+    { id: 3, name: "Grayscale", value: 0 },
+    { id: 4, name: "Sepia", value: 0 },
+    { id: 5, name: "Invert", value: 0 },
+    { id: 6, name: "Hue-Rotate", value: 0 },
+    { id: 7, name: "Saturate", value: 25 },
+  ],
+  blur: [{ id: 8, name: "Blur", value: 0 }],
 };

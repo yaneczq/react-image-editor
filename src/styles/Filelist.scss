@@ -1,0 +1,53 @@
+// FILELIST
+.filelist-overlay {
+  position: fixed;
+  gap: 24px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 25px 16px;
+  z-index: 2;
+  background-color: $grayscale__950;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid $grayscale__900;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3); /* Left shadow */
+
+  .highlight {
+    background-color: lightblue; /* or any color you prefer */
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .list__item {
+      list-style: none;
+      border-radius: 5px;
+      padding: 12px 16px;
+      background-color: $grayscale__900; /* Default background color */
+      font-size: $font-size-2xs;
+      width: 212px;
+      transition: background-color 0.3s; /* Add a transition for smoothness */
+
+      /* Hover state */
+      &:hover {
+        background-color: $blue; /* Change background color on hover */
+      }
+
+      /* Focus state */
+      &:focus {
+        outline: 2px solid red; /* Outline on focus */
+        outline-offset: -2px; /* Offset the outline */
+        background-color: $grayscale__800; /* Change background color when focused */
+        z-index: 1000; /* Ensure focused item is above others */
+      }
+    }
+  }
+}
+
+.list__item.open {
+  background-color: #16c010; /* Change to desired highlight color */
+  color: white;
+}

@@ -1,4 +1,3 @@
-
 // User Defined styles
 @import "./styles/variables/breakpoints";
 @import "./styles/variables/effects";
@@ -7,91 +6,66 @@
 @import "./styles/variables/colors";
 
 // IMPORTANT: Imported below, to load and use the variables
-@import "./styles/panel.scss";
-@import "./styles/canvas.scss";
+@import "./styles/Navbar.scss";
+@import "./styles/Filelist.scss";
+@import "./styles/Filters.scss";
 
 @import "./App.scss";
+// body,
+// html {
+//   width: 100vw;
+//   height: 100vh;
+//   font-family: "Inter", sans-serif;
+// }
 
-
-
-body,html {
-    font-family: "Inter", sans-serif;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+// // Reset margin and padding
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
 }
 
-// Reset margin and padding
-body, html, h1, ul, p, em {
-    margin: 0;
-    padding: 0;
+p,
+em,
+a,
+li,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
 }
 
+input[type="range"] {
+  appearance: none; /* Remove default appearance */
 
-
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background-color: $grayscale__900;
-  color: $grayscale__100;
-  border-radius: 8px;
-  padding: 12px 16px;
-  height: 36px;
-  &:hover {
-      color: $grayscale__900;
-      cursor: pointer;
-      background-color: $grayscale__400;
-  }
+  width: 100%; /* Full width */
+  height: 5px; /* Height of the track */
+  background: $grayscale__700; /* Track background color */
+  border-radius: 4px;
+  outline: none; /* Remove outline when focused */
 }
 
-.preset__btn {
-  border: 0.5px solid $grayscale__300;
-  background-color: $grayscale__50;
-  color: $grayscale__500;
-  border-radius: 2px;
-  padding: 12px;
-  width: auto;
+/* Style the slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none; /* Remove default appearance */
+  appearance: none; /* For non-webkit browsers */
+  width: 15px; /* Thumb width */
+  height: 15px; /* Thumb height */
+  border-radius: 50%; /* Round shape */
+  outline: 2px solid $grayscale__500;
+  outline-offset: -2px;
+  background: $grayscale__700; /* Thumb color */
+  cursor: pointer; /* Hand cursor */
 }
 
-select {
-  border: 0.5px solid $grayscale__300;
-  background-color: $grayscale__50;
-  color: $grayscale__500;
-  label {
-    font-size: $font-size-2xs;
-  }
-  option {
-    font-size: $font-size-2xs;
-  }
-}
-
-.app__header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  h1 {
-    font-weight: 700;
-    font-size: $font-size-md;
-  }
-
-  p {
-    font-weight: 500;
-    font-size: $font-size-xs;
-
-  }
-}
-
-.app__info {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  justify-content: start;
-  color: $grayscale__300;
-  p {
-    font-size: $font-size-3xs;
-    font-weight: 500;
-  }
+/* Style the thumb when active (while dragging) */
+input[type="range"]:active::-webkit-slider-thumb {
+  background: #0056b3; /* Darker blue when active */
+  transform: scale(1.2); /* Make the thumb slightly bigger */
+  outline-color: $grayscale__400;
 }

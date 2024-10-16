@@ -1,0 +1,108 @@
+// FILTERS
+.filters-overlay {
+  border-left: 2px solid $grayscale__900;
+  position: relative;
+  background-color: $grayscale__950;
+  right: 0;
+  z-index: 2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3); /* Left shadow */
+  align-items: center;
+  overflow-y: auto;
+  top: 2;
+}
+
+.tools {
+  display: flex;
+  gap: 8px;
+
+  select {
+    color: $grayscale__400;
+    font-size: $font-size-2xs;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    // padding: 12px 32px 12px 16px;
+    text-align: left;
+    appearance: none; /* Remove default arrow */
+    background-color: $grayscale__900; /* Background color */
+    // background-image: url('./public/icons/chevron-down.svg'); /* Custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 6px center; /* Position the arrow */
+    background-size: 16px; /* Adjust the size for better visibility */
+    cursor: pointer; /* Change cursor to pointer */
+
+    &:hover {
+      background-color: $grayscale__800;
+    }
+
+    /* Focus state */
+    &:focus {
+      outline: 2px solid $blue;
+      outline-offset: -2px;
+      background-color: $grayscale__800; /* Optionally, change background on focus */
+    }
+
+    /* Optional: Change the arrow color or background color on active */
+    &:active,
+    &:focus {
+      background-image: url("./public/icons/chevron-down-active.svg"); /* Use a different icon if desired */
+    }
+  }
+}
+
+.slider__container {
+  width: 85%;
+  h3 {
+    font-size: $font-size-base;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  background-color: $grayscale__900;
+  padding: 20px;
+  border-radius: 8px;
+  outline: 1.5px solid $grayscale__800;
+  outline-offset: -1.5px;
+}
+
+.slider {
+  .slider-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    label {
+      font-weight: 300;
+    }
+    p {
+      font-size: $font-size-4xs;
+      text-align: center;
+
+      width: 20px;
+      padding: 1px 2px;
+      border: 1px solid $grayscale__400;
+    }
+  }
+
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  label {
+    font-size: $font-size-2xs;
+  }
+  p {
+    font-size: $font-size-3xs;
+  }
+}
