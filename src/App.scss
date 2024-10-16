@@ -1,211 +1,211 @@
-// APP
-.app {
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-}
+// // APP
+// .app {
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: row;
+// }
 
-.app__header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
-  h1 {
-    font-size: $font-size-md;
-  }
-  p {
-    font-size: $font-size-xs;
-  }
-}
+// .app__header {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+//   margin-bottom: 12px;
+//   h1 {
+//     font-size: $font-size-md;
+//   }
+//   p {
+//     font-size: $font-size-xs;
+//   }
+// }
 
-button {
-  display: flex;
-  border: none;
-  margin: 0;
-  padding: 0;
-  padding: 12px;
-  border-radius: 8px;
-  background-color: $grayscale__900;
-  color: $grayscale__400;
-  &:hover {
-    background-color: $grayscale__800;
-    cursor: pointer;
-  }
-  &:active {
-    outline: 2px solid $blue;
-    outline-offset: -2px;
-  }
-}
+// button {
+//   display: flex;
+//   border: none;
+//   margin: 0;
+//   padding: 0;
+//   padding: 12px;
+//   border-radius: 8px;
+//   background-color: $grayscale__900;
+//   color: $grayscale__400;
+//   &:hover {
+//     background-color: $grayscale__800;
+//     cursor: pointer;
+//   }
+//   &:active {
+//     outline: 2px solid $blue;
+//     outline-offset: -2px;
+//   }
+// }
 
-.empty__dropzone {
-  height: 100vh;
-  width: 100vw;
-  background-color: $grayscale__900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+// .empty__dropzone {
+//   height: 100vh;
+//   width: 100vw;
+//   background-color: $grayscale__900;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: relative;
+// }
 
-@media (max-width: 768px) {
-  .app {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+// @media (max-width: 768px) {
+//   .app {
+//     position: relative;
+//     display: flex;
+//     flex-direction: column;
+//   }
 
-  .empty__dropzone {
-    height: 50vh;
-    background-color: $grayscale__900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .canvas__container {
-    canvas {
-      position: relative;
-      left: 0;
-      right: 0;
-    }
-  }
-  //   .filters-overlay {
-  //     width: 100vw;
-  //   position: fixed; /* Stick the element at the bottom */
-  //   bottom: 64px; /* Align at the bottom */
-  //   height: auto; /* Allow height to adapt */
-  //   max-height: 50vh; /* Limit height to 20% of the viewport */
-  //   overflow: overlay;
-  //   background-color: $grayscale__950; /* Optional: add a background to distinguish it from the canvas */
-  //   z-index: 2; /* Ensure it's above the canvas */
-  //   padding-bottom: 24px;
-  //   padding: 20px 0;
+//   .empty__dropzone {
+//     height: 50vh;
+//     background-color: $grayscale__900;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     position: relative;
+//   }
+//   .canvas__container {
+//     canvas {
+//       position: relative;
+//       left: 0;
+//       right: 0;
+//     }
+//   }
+//   //   .filters-overlay {
+//   //     width: 100vw;
+//   //   position: fixed; /* Stick the element at the bottom */
+//   //   bottom: 64px; /* Align at the bottom */
+//   //   height: auto; /* Allow height to adapt */
+//   //   max-height: 50vh; /* Limit height to 20% of the viewport */
+//   //   overflow: overlay;
+//   //   background-color: $grayscale__950; /* Optional: add a background to distinguish it from the canvas */
+//   //   z-index: 2; /* Ensure it's above the canvas */
+//   //   padding-bottom: 24px;
+//   //   padding: 20px 0;
 
-  //   &::-webkit-scrollbar {
-  //     width: 8px; /* Width of the scrollbar */
-  //   }
-  //   &::-webkit-scrollbar-track {
-  //     background-color: $grayscale__950; /* Background of the scrollbar track */
-  //   }
-  //   &::-webkit-scrollbar-thumb {
-  //     background-color: $grayscale__700; /* Color of the scrollbar thumb */
-  //     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-  //   }
-  // }
+//   //   &::-webkit-scrollbar {
+//   //     width: 8px; /* Width of the scrollbar */
+//   //   }
+//   //   &::-webkit-scrollbar-track {
+//   //     background-color: $grayscale__950; /* Background of the scrollbar track */
+//   //   }
+//   //   &::-webkit-scrollbar-thumb {
+//   //     background-color: $grayscale__700; /* Color of the scrollbar thumb */
+//   //     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+//   //   }
+//   // }
 
-  .filters-overlay {
-    position: absolute;
-    bottom: 68px;
-    width: 100%; /* Full width */
-    height: 35vh; /* Fixed height */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
-    padding: 10px; /* Internal padding for aesthetic spacing */
-    box-sizing: border-box; /* Includes padding in width/height calculation */
-    z-index: 3000;
-    /* Optional: background and text styles */
-    background-color: $grayscale__950;
+//   .filters-overlay {
+//     position: absolute;
+//     bottom: 68px;
+//     width: 100%; /* Full width */
+//     height: 35vh; /* Fixed height */
+//     overflow-y: auto; /* Enable vertical scrolling if content overflows */
+//     padding: 10px; /* Internal padding for aesthetic spacing */
+//     box-sizing: border-box; /* Includes padding in width/height calculation */
+//     z-index: 3000;
+//     /* Optional: background and text styles */
+//     background-color: $grayscale__950;
 
-    /* Smooth scrolling for a nice user experience */
-    scroll-behavior: smooth;
+//     /* Smooth scrolling for a nice user experience */
+//     scroll-behavior: smooth;
 
-    /* For Firefox: thin scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-  }
+//     /* For Firefox: thin scrollbar */
+//     scrollbar-width: thin;
+//     scrollbar-color: #888 #f1f1f1;
+//   }
 
-  /* WebKit Browsers (Chrome, Safari, Edge) */
-  .filters-overlay::-webkit-scrollbar {
-    width: 8px; /* Scrollbar width */
-  }
+//   /* WebKit Browsers (Chrome, Safari, Edge) */
+//   .filters-overlay::-webkit-scrollbar {
+//     width: 8px; /* Scrollbar width */
+//   }
 
-  .filters-overlay::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Scrollbar track (background) */
-  }
+//   .filters-overlay::-webkit-scrollbar-track {
+//     background-color: #f1f1f1; /* Scrollbar track (background) */
+//   }
 
-  .filters-overlay::-webkit-scrollbar-thumb {
-    background-color: #888; /* Scrollbar thumb (draggable part) */
-    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-  }
+//   .filters-overlay::-webkit-scrollbar-thumb {
+//     background-color: #888; /* Scrollbar thumb (draggable part) */
+//     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+//   }
 
-  .filters-overlay::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Darker on hover */
-  }
+//   .filters-overlay::-webkit-scrollbar-thumb:hover {
+//     background-color: #555; /* Darker on hover */
+//   }
 
-  /* Hiding scrollbars without preventing scrolling */
-  .filters-overlay.hidden-scrollbar {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For IE/Edge */
-  }
+//   /* Hiding scrollbars without preventing scrolling */
+//   .filters-overlay.hidden-scrollbar {
+//     scrollbar-width: none; /* For Firefox */
+//     -ms-overflow-style: none; /* For IE/Edge */
+//   }
 
-  .filters-overlay.hidden-scrollbar::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari */
-  }
+//   .filters-overlay.hidden-scrollbar::-webkit-scrollbar {
+//     display: none; /* Hide scrollbar for Chrome/Safari */
+//   }
 
-  .navbar {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    flex-direction: row;
-    height: 10vh;
-    border-right: none;
-    border-top: 2px solid $grayscale__800;
-  }
-}
+//   .navbar {
+//     position: absolute;
+//     width: 100%;
+//     bottom: 0;
+//     flex-direction: row;
+//     height: 10vh;
+//     border-right: none;
+//     border-top: 2px solid $grayscale__800;
+//   }
+// }
 
-canvas {
-  background-color: $grayscale__900;
-}
+// canvas {
+//   background-color: $grayscale__900;
+// }
 
-.status__message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 12px;
-  padding: 2rem;
-  gap: 4px;
-  color: $grayscale__500;
-  border: 2px dashed $grayscale__700;
-}
+// .status__message {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   border-radius: 12px;
+//   padding: 2rem;
+//   gap: 4px;
+//   color: $grayscale__500;
+//   border: 2px dashed $grayscale__700;
+// }
 
-// CANVAS CONTROLS
-.controls {
-  background-color: $grayscale__950;
-  border-radius: 2px 2px 12px 12px;
-  padding: 16px 12px 12px 12px;
-  position: absolute; /* Make the element absolute */
-  top: 0%; /* Move it down 50% of the parent's height */
-  left: 50%; /* Move it right 50% of the parent's width */
-  z-index: 1;
-  transform: translate(-50%, 0%); /* Adjust the position to center it */
-  display: flex;
-  gap: 8px;
-  color: white;
-  align-items: center;
-}
+// // CANVAS CONTROLS
+// .controls {
+//   background-color: $grayscale__950;
+//   border-radius: 2px 2px 12px 12px;
+//   padding: 16px 12px 12px 12px;
+//   position: absolute; /* Make the element absolute */
+//   top: 0%; /* Move it down 50% of the parent's height */
+//   left: 50%; /* Move it right 50% of the parent's width */
+//   z-index: 1;
+//   transform: translate(-50%, 0%); /* Adjust the position to center it */
+//   display: flex;
+//   gap: 8px;
+//   color: white;
+//   align-items: center;
+// }
 
-.zoom-button {
-  outline: 1.5px solid $grayscale__700;
-  outline-offset: -1.5px;
-  &:hover {
-    cursor: pointer;
-    border: none;
-    background-color: $grayscale__700;
-    color: $grayscale__100;
-  }
-}
+// .zoom-button {
+//   outline: 1.5px solid $grayscale__700;
+//   outline-offset: -1.5px;
+//   &:hover {
+//     cursor: pointer;
+//     border: none;
+//     background-color: $grayscale__700;
+//     color: $grayscale__100;
+//   }
+// }
 
-.download-button {
-  padding: 12px 48px;
-  &:hover {
-    background-color: $blue;
-    color: $grayscale__100;
-    cursor: pointer;
-  }
-}
+// .download-button {
+//   padding: 12px 48px;
+//   &:hover {
+//     background-color: $blue;
+//     color: $grayscale__100;
+//     cursor: pointer;
+//   }
+// }
 
-.line {
-  padding: 0px 12px;
-  color: $grayscale__800;
-  font-weight: 00;
-  font-size: 32px;
-}
+// .line {
+//   padding: 0px 12px;
+//   color: $grayscale__800;
+//   font-weight: 00;
+//   font-size: 32px;
+// }

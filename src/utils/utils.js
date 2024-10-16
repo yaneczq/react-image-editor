@@ -105,3 +105,11 @@ export const defStyle = {
   ],
   blur: [{ id: 8, name: "Blur", value: 0 }],
 };
+
+export const convertFiltersToString = (filters) => `
+  blur(${filters.blur}px)
+  saturate(${filters.saturation}%)
+  brightness(${filters.brightness}%)
+  contrast(${filters.contrast}%)
+  sepia(${filters.sepia}%)
+`;
