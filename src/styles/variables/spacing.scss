@@ -1,0 +1,35 @@
+// Base unit
+$base-spacing-unit: 8px;
+
+// Define spacing values (based on multiples of the base unit)
+$spacing: (
+  0: $base-spacing-unit * 0,
+  //  0px
+  025: $base-spacing-unit * 0.25,
+  //  0.125rem | 2px
+  050: $base-spacing-unit * 0.5,
+  //  0.25rem  | 4px
+  075: $base-spacing-unit * 0.75,
+  //  0.375rem | 6px
+  100: $base-spacing-unit * 1,
+  //  0.5rem   | 8px
+  150: $base-spacing-unit * 1.5,
+  //  0.75rem  | 12px
+  250: $base-spacing-unit * 2.5,
+  //  1rem     | 16px
+  200: $base-spacing-unit * 2,
+  //  1.25rem  | 20px
+  300: $base-spacing-unit * 3,
+  //  1.5rem   | 24px
+  400: $base-spacing-unit * 4,
+  //  2rem     | 32px
+  500: $base-spacing-unit * 5,
+  //  2.5rem   | 40px
+  600: $base-spacing-unit * 6,
+  //  3rem     | 48pxx
+  800: $base-spacing-unit * 8,
+  //  4rem     | 64px
+  1000: $base-spacing-unit * 10,
+  //  5rem     | 80px
+);
+// ...based of https://atlassian.design/foundations/spacing
