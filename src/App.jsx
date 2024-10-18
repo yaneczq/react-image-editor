@@ -46,7 +46,7 @@ const App = () => {
   
     setAcceptedFiles((prevFiles) => {
       const updatedFiles = [...prevFiles, ...newFiles];
-      saveImagesToLocalStorage(updatedFiles); // Ensure this works correctly
+      saveImagesToLocalStorage(updatedFiles);
       return updatedFiles;
     });
   
@@ -56,7 +56,6 @@ const App = () => {
   
     alert("Success!");
   };
-  
 
   const onDropRejected = (rejectedFiles) => {
     rejectedFiles.forEach(({ file, errors }) => {
@@ -92,11 +91,12 @@ const App = () => {
   const acceptedFileItems = acceptedFiles.map((file) => (
     <li
       className="list__item"
-      key={`${file.name}-${file.size}-${file.lastModified}`} // Use file size and last modified timestamp to create a unique key
+      key={`${file.name}-${file.size}-${file.lastModified}`} // Unique key
       onClick={() => setImageSrc(URL.createObjectURL(file))}
       style={{ cursor: "pointer" }}
     >
-      {file.name} | {file.size} bytes
+      <p>{file.name}</p>
+      <p>{file.size} bytes</p>
     </li>
   ));
 
@@ -118,87 +118,89 @@ const App = () => {
       </nav>
   
       {imageSrc ? (
-  <ImageCanvas
-    filter={filter}
-    imageSrc={imageSrc}
-    canvasRef={canvasRef}
-  />
-) : (
-  <div {...getRootProps({ className: "empty__dropzone" })}>
-    <div className="status__message">
-      <p>No Files Uploaded</p>
-      <em>Max 5MB - total upload limit</em>
-    </div>
-  </div>
-)}
+        <>
+          <ImageCanvas
+            filter={filter}
+            imageSrc={imageSrc}
+            canvasRef={canvasRef}
+          />
 
+          {/* Display filters only after image is loaded */}
+          {isFiltersOpen && (
+            <div className="filters-overlay">
+              <div className="app__header">
+                <h1>CSS Filters</h1>
+                <p>Use sliders below to edit your image...</p>
+              </div>
 
-      {isFiltersOpen && (
-        <div className="filters-overlay">
-          <div className="app__header">
-            <h1>CSS Filters</h1>
-            <p>Use sliders below to edit your image...</p>
-          </div>
-
-          <div className="slider__container">
-            <h3>Light</h3>
-            {defStyle.light.map((x, index) => (
-              <div className="slider" key={index}>
-                <div className="slider-header">
-                  <label htmlFor={`customRange${index}`}>{x.name}</label>
-                  <p>{x.value}%</p>
-                </div>
-                <input
-                  type="range"
-                  id={`customRange${index}`}
-                  value={x.value}
-                  min="0"
-                  max="100"
-                  name={x.name}
-                  onChange={onFilterChange}
-                />
+              <div className="slider__container">
+                <h3>Light</h3>
+                {defStyle.light.map((x, index) => (
+                  <div className="slider" key={index}>
+                    <div className="slider-header">
+                      <label htmlFor={`customRange${index}`}>{x.name}</label>
+                      <p>{x.value}%</p>
+                    </div>
+                    <input
+                      type="range"
+                      id={`customRange${index}`}
+                      value={x.value}
+                      min="0"
+                      max="100"
+                      name={x.name}
+                      onChange={onFilterChange}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="slider__container">
-            <h3>Color</h3>
-            {defStyle.color.map((x, index) => (
-              <div className="slider" key={index}>
-                <div className="slider-header">
-                  <label htmlFor={`customRange${index}`}>{x.name}</label>
-                  <p>{x.value}%</p>
-                </div>
-                <input
-                  type="range"
-                  id={`customRange${index}`}
-                  value={x.value}
-                  min="0"
-                  max="100"
-                  name={x.name}
-                  onChange={onFilterChange}
-                />
+              <div className="slider__container">
+                <h3>Color</h3>
+                {defStyle.color.map((x, index) => (
+                  <div className="slider" key={index}>
+                    <div className="slider-header">
+                      <label htmlFor={`customRange${index}`}>{x.name}</label>
+                      <p>{x.value}%</p>
+                    </div>
+                    <input
+                      type="range"
+                      id={`customRange${index}`}
+                      value={x.value}
+                      min="0"
+                      max="100"
+                      name={x.name}
+                      onChange={onFilterChange}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="slider__container">
-            <h3>Blur</h3>
-            {defStyle.blur.map((x, index) => (
-              <div className="slider" key={index}>
-                <div className="slider-header">
-                  <label htmlFor={`customRange${index}`}>{x.name}</label>
-                  <p>{x.value}%</p>
-                </div>
-                <input
-                  type="range"
-                  id={`customRange${index}`}
-                  value={x.value}
-                  min="0"
-                  max="100"
-                  name={x.name}
-                  onChange={onFilterChange}
-                />
+              <div className="slider__container">
+                <h3>Blur</h3>
+                {defStyle.blur.map((x, index) => (
+                  <div className="slider" key={index}>
+                    <div className="slider-header">
+                      <label htmlFor={`customRange${index}`}>{x.name}</label>
+                      <p>{x.value}%</p>
+                    </div>
+                    <input
+                      type="range"
+                      id={`customRange${index}`}
+                      value={x.value}
+                      min="0"
+                      max="100"
+                      name={x.name}
+                      onChange={onFilterChange}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          )}
+        </>
+      ) : (
+        <div {...getRootProps({ className: "empty__dropzone" })}>
+          <div className="status__message">
+            <p>No Files Uploaded</p>
+            <em>Max 5MB - total upload limit</em>
           </div>
         </div>
       )}
@@ -212,7 +214,6 @@ const App = () => {
           <div className="list">{acceptedFileItems}</div>
         </div>
       )}
-
     </div>
   );
 };
