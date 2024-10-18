@@ -5,22 +5,16 @@
 @import "./styles/variables/typography";
 @import "./styles/variables/colors";
 
-// IMPORTANT: Imported below, to load and use the variables
-@import "./styles/Navbar.scss";
-@import "./styles/Filelist.scss";
-@import "./styles/Filters.scss";
+// Global box-sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-@import "./App.scss";
-// body,
-// html {
-//   width: 100vw;
-//   height: 100vh;
-//   font-family: "Inter", sans-serif;
-// }
-
-// // Reset margin and padding
 body,
 html {
+  background-color: $grayscale__900;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -40,32 +34,434 @@ h4 {
   padding: 0;
 }
 
-// input[type="range"] {
-//   appearance: none; /* Remove default appearance */
+h3 {
+  font-size: $font-size-base;
+}
 
-//   width: 100%; /* Full width */
-//   height: 5px; /* Height of the track */
-//   background: $grayscale__700; /* Track background color */
-//   border-radius: 4px;
-//   outline: none; /* Remove outline when focused */
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  h1 {
+    font-size: $font-size-md;
+  }
+  
+  p {
+    font-size: $font-size-xs;
+  }
+}
+
+button {
+  display: flex;
+  border: none;
+  margin: 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: $grayscale__900;
+  color: $grayscale__400;
+  &:hover {
+    background-color: $grayscale__800;
+    cursor: pointer;
+  }
+
+  &:active {
+    outline: 2px solid $blue;
+    outline-offset: -2px;
+  }
+}
+
+// NAVBAR
+
+.navbar {
+  position: absolute;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  color: $grayscale__300;
+  height: 100vh;
+  width: 7vh;
+  border-right: 2px solid $grayscale__800;
+  // border-right: 2px solid $grayscale__800;
+  background-color: $grayscale__950;
+  .menu-icon {
+    display: flex;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      border-radius: 12px;
+      background-color: $blue;
+      color: $grayscale__100;
+    }
+  }
+}
+
+.dropzone {
+  // padding: 0.75rem;
+  display: flex;
+
+  &:hover {
+    background-color: $blue;
+    border-radius: 12px;
+
+    color: $grayscale__100;
+    cursor: pointer;
+  }
+}
+
+
+.empty__dropzone {
+  height: 100vh;
+  width: 100vw; // Full width of viewport
+  background-color: $grayscale__900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+  background-color: $grayscale__900;
+  width: 100vw; // Fill the parent container
+  height: 100vh; // Fill the parent container
+}
+
+.status__message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  padding: 2rem;
+  gap: 4px;
+  color: $grayscale__500;
+  border: 2px dashed $grayscale__700;
+}
+
+.controls {
+  background-color: $grayscale__950;
+  padding: 12px;
+  border-radius: 12px;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, 0);
+  display: flex;
+  gap: 8px;
+  color: white;
+}
+
+.zoom-button,
+.download-button {
+  outline: 1.5px solid $grayscale__700;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $grayscale__700;
+    color: $grayscale__100;
+  }
+}
+
+.line {
+  padding: 0 12px;
+  color: $grayscale__800;
+  font-size: 32px;
+}
+
+// .navbar {
+//   position: absolute;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
+//   color: $grayscale__300;
+//   border-right: 2px solid $grayscale__800;
+//   background-color: $grayscale__950;
+
+//   .menu-icon {
+//     font-size: 24px;
+//     color: #fff;
+//     cursor: pointer;
+
+//     &:hover {
+//       border-radius: 12px;
+//       background-color: $blue;
+//       color: $grayscale__100;
+//     }
+//   }
 // }
 
-// /* Style the slider thumb */
-// input[type="range"]::-webkit-slider-thumb {
-//   appearance: none; /* Remove default appearance */
-//   appearance: none; /* For non-webkit browsers */
-//   width: 15px; /* Thumb width */
-//   height: 15px; /* Thumb height */
-//   border-radius: 50%; /* Round shape */
-//   outline: 2px solid $grayscale__500;
-//   outline-offset: -2px;
-//   background: $grayscale__700; /* Thumb color */
-//   cursor: pointer; /* Hand cursor */
+// .dropzone {
+//   display: flex;
+
+//   &:hover {
+//     background-color: $blue;
+//     border-radius: 12px;
+//     color: $grayscale__100;
+//     cursor: pointer;
+//   }
 // }
 
-// /* Style the thumb when active (while dragging) */
-// input[type="range"]:active::-webkit-slider-thumb {
-//   background: #0056b3; /* Darker blue when active */
-//   transform: scale(1.2); /* Make the thumb slightly bigger */
-//   outline-color: $grayscale__400;
-// }
+.filters-overlay {
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  // align-items: center;
+  height: calc(100vh); // Adjust based on your header height
+  color: white;
+  background-color: $grayscale__950;
+  border-left: 2px solid $grayscale__900;
+  right: 0;
+  z-index: 2;
+  gap: 12px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.tools {
+  display: flex;
+  gap: 8px;
+
+  select {
+    color: $grayscale__400;
+    font-size: $font-size-2xs;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: $grayscale__900;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    background-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grayscale__800;
+    }
+
+    &:focus {
+      outline: 2px solid $blue;
+      outline-offset: -2px;
+      background-color: $grayscale__800;
+    }
+  }
+}
+
+.slider__container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  margin: 12px 0;
+
+  h3 {
+    font-size: $font-size-md; // Set this variable according to your typography settings
+    color: $grayscale__400; // Use a variable for the color
+    margin-bottom: 16px; // Space below the header
+  }
+
+  .slider {
+    width: 100%; // Full width for sliders
+    margin-bottom: 20px; // Space between sliders
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px; // Space between header and slider
+      width: 100%; // Make it full width
+
+      label {
+        font-size: $font-size-2xs; // Adjust according to your typography settings
+        color: $grayscale__400; // Use a variable for the color
+      }
+
+      p {
+        font-size: $font-size-2xs; // Adjust according to your typography settings
+        color: $grayscale__300; // Use a variable for the color
+      }
+    }
+
+    input[type="range"] {
+      appearance: none; // Remove default styling in WebKit browsers
+      width: 100%; // Full width
+      height: 6px; // Track height
+      border-radius: 5px; // Rounded track
+      background: $grayscale__700; // Track color
+      outline: none; // Remove outline on focus
+      transition: background 0.3s; // Smooth transition for hover
+
+      &:hover {
+        background: $grayscale__600; // Darker color on hover
+      }
+
+      // WebKit thumb styles
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none; // Remove default thumb
+        appearance: none; // Remove default thumb
+        width: 14px; // Thumb width
+        height: 14px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
+        outline: 2px solid $grayscale__400;
+        outline-offset: -1px;
+
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
+
+      // Firefox thumb styles
+      &::-moz-range-thumb {
+        width: 16px; // Thumb width
+        height: 16px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
+
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
+
+      // Internet Explorer thumb styles
+      &::-ms-thumb {
+        width: 16px; // Thumb width
+        height: 16px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
+
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
+    }
+  }
+}
+
+.filelist-overlay {
+  position: fixed;
+  gap: 24px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 25px 16px;
+  z-index: 2;
+  background-color: $grayscale__950;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid $grayscale__900;
+  overflow-y: auto;
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .list__item {
+    width: 15.5rem;
+    font-size: $font-size-2xs;
+    list-style: none;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: $grayscale__800;
+    display: flex;
+    justify-content: space-between;
+    p {
+    }
+    &:hover {
+      background-color: $blue;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  &.hidden-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  canvas {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .empty__dropzone {
+    height: 95vh; // Adjust this if necessary
+  }
+
+  .filters-overlay {
+    position: absolute;
+    bottom: 84px;
+    width: 100%;
+    height: 35vh; // Adjust based on your design
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 3000;
+    background-color: $grayscale__950;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+
+  .navbar {
+    width: 100%;
+    flex-direction: row;
+    bottom: 0;
+    height: 10vh; // Adjust this if necessary
+    border: none;
+    border-top: 2px solid $grayscale__800;
+  }
+
+  .filelist-overlay {
+    position: absolute;
+    top: 439px; // Adjust this if necessary
+    height: 20rem; // Adjust this if necessary
+    width: 100%;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 3000;
+    background-color: $grayscale__950;
+    border: none;
+    border-top: 2px solid $grayscale__800;
+    .list__item {
+      font-size: $font-size-xs;
+      padding: 16px;
+      width: 100%;
+    }
+  }
+}

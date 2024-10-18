@@ -11,23 +11,34 @@ const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     const image = new Image();
-
     const resizeCanvas = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
       // Adjust canvas for high-DPI displays
       const scale = window.devicePixelRatio || 1;
       const width = window.innerWidth;
       const height = window.innerHeight;
-
+  
       // Set canvas dimensions for high-DPI
-      canvas.width = width * scale;
-      canvas.height = height * scale;
-      canvas.style.width = `${width / 1}px`;
-      canvas.style.height = `${height / 1}px`;
-
+      
+      // Check if the computed canvas width is less than 842px
+      if (width < 842) {
+        canvas.width = (width / 2) * scale;
+        canvas.height = (height / 2) * scale;
+        canvas.style.width = `${width / 1}px`; // Reduce width by half
+        canvas.style.height = `${height / 1}px`; // Reduce height by half
+      } else {
+        // Otherwise, set to full width and height
+          canvas.width = width * scale;
+          canvas.height = height * scale;
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+      }
+  
+      // Draw the image onto the canvas
       drawImage(ctx, image);
-    };
+  };
+  
 
     const drawImage = (ctx, image) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
