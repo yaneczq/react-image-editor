@@ -1,0 +1,92 @@
+.dropzone {
+  padding: 2.75rem 7.5rem;
+  margin: 0rem 4rem;
+
+  background-color: $grayscale__950;
+  color: $grayscale__500;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  outline: 3px dashed $grayscale__800;
+  outline-offset: -3px;
+  border-radius: 0.75rem;
+  
+  transition: 0.15s;
+  
+  &:hover {
+    cursor: pointer;
+
+    background-color: $grayscale__1050;
+    outline-color: $blue;
+
+    transition: 0.5s;
+  }
+
+  .icon {
+    display: none;
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropzone {
+    padding: 1.25rem 1.75rem;
+    flex-direction: row;
+    gap: 12px;
+
+    .app__icon {
+      display: none;
+    }
+
+    h3 {
+      display: none;
+    }
+
+    .icon {
+      display: flex;
+    }
+
+    h3 {
+      font-size: $font-size-sm;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+@media screen and (max-width: 378px) {
+  .dropzone {
+    gap: 0;
+
+    .icon {
+      font-size: 24px;
+    }
+
+    p {
+      display: none;
+    }
+
+  }
+}
+
+@media screen and (max-width: 112px) {
+  .dropzone {
+    padding: 0.75rem;
+    outline: none;
+
+    .icon {
+      font-size: 24px;
+    }
+
+    p {
+      display: none;
+    }
+  }
+}

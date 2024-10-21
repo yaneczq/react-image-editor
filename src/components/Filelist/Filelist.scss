@@ -1,0 +1,31 @@
+.filelist {
+  padding: 8px;
+  top: 5%;
+
+  color: $grayscale__300;
+  background-color: $grayscale__900;
+  font-size: $font-size-sm;
+  
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 6px;
+
+  border-radius: 6px;
+  
+  li {
+    padding: 16px;
+    background-color: $grayscale__950;
+    
+    list-style: none;
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+ 
+}
+
+@media screen and (max-width: 378px) {
+  
+}

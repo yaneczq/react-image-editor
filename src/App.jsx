@@ -5,8 +5,7 @@ const App = () => {
 
   return (
     <div className="app">
-
-       <Dropzone />
+      <Dropzone />
     </div>
   );
 };

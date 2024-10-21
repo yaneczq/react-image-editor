@@ -1,0 +1,33 @@
+@import "./App.scss";
+@import "./styles/variables.scss";
+@import "./components/Dropzone/Dropzone.scss";
+@import "./components/Filelist/Filelist.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+html,
+body {
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.015rem;
+  height: 100%; /* Ensure full height for body */
+  background-color: $grayscale__1000;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: $font-size-sm;
+  font-weight: 500;
+}
+
+p {
+  font-size: $font-size-xs;
+  font-weight: 400;
+}

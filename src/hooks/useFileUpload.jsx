@@ -6,8 +6,8 @@ const useFileUpload = () => {
 
   const onDrop = (files) => {
     const acceptedFilesList = files.map((file) => ({
-      path: file.path,   // Store the file path
-      name: file.name    // Optionally store the file name (or any other relevant info)
+      path: file.path, // Store the file path
+      name: file.name, // Optionally store the file name (or any other relevant info)
     }));
 
     // Update the state with all files, not just one
@@ -16,7 +16,7 @@ const useFileUpload = () => {
 
   const { getInputProps, getRootProps } = useDropzone({
     noKeyboard: true,
-    multiple: true,  // Ensure multiple file uploads are allowed
+    multiple: true, // Ensure multiple file uploads are allowed
     accept: {
       "image/png": [".png"],
       "image/jpg": [".jpg"],
