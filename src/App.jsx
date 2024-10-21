@@ -4,9 +4,10 @@ const App = () => {
   // Use the custom hook
 
   return (
-    <>
+    <div className="app">
+
        <Dropzone />
-    </>
+    </div>
   );
 };
 
